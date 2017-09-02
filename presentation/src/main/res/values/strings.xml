@@ -1,0 +1,85 @@
+<resources>
+    <!--Titles-->
+    <string name="app_name">100Ballov</string>
+    <string name="title_activity_nav_draw">NavDrawActivity</string>
+    <string name="title_contacts_frag">Контакты</string>
+    <string name="title_about_us_frag">О нас</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--NavigationDrawer items-->
+    <string name="action_settings">Settings</string>
+    <string name="action_login">Login</string>
+    <string name="profile_item">Мой профиль</string>
+    <string name="schedule_item">Расписание</string>
+    <string name="books_item">Учебники</string>
+    <string name="news_item">Новости</string>
+
+    <!--Main page strings-->
+    <string name="about_us">О нас</string>
+    <string name="contacts">Контакты</string>
+    <string name="schedule">Расписание</string>
+    <string name="enroll">Записаться</string>
+
+
+    <!--About us-->
+    <string name="teacher1">Ivan</string>
+    <string name="teacher2">Eva</string>
+    <string name="edu">Адукацыя:</string>
+    <string name="work_form">Форма працы:</string>
+    <string name="classes">Класы: </string>
+    <string name="comment">Каментар выкладчыка:</string>
+
+    <!--Hints and image descriptions-->
+    <string name="image_description">teacher photo</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_surname">Surname</string>
+    <string name="hint_edu">Education</string>
+    <string name="hint_comment">Comment</string>
+
+    <!--Enrollment strings-->
+    <string name="to_enroll">Чтобы записаться на курс,\nвведите свои контактные данные:</string>
+    <string name="parent_enroll">ФИО одного из родителей:</string>
+    <string name="parent_phone_enroll">Телефон одного из родителей:</string>
+    <string name="email">E-mail для связи:</string>
+    <string name="student_enroll">ФИО ученика:</string>
+    <string name="student_phone_enroll">Телефон ученика:</string>
+    <string name="class_enroll">Класс:</string>
+    <string name="class4">4 класс</string>
+    <string name="class6">6 класс</string>
+    <string name="class7">7 класс</string>
+    <string name="class8">8 класс</string>
+    <string name="class9">9 класс</string>
+    <string name="class10">10 класс</string>
+    <string name="class11">11 класс (Подготовка в ЦТ)</string>
+
+    <string-array name="class_list">
+        <item>Выбрать</item>
+        <item>4 класс</item>
+        <item>6 класс</item>
+        <item>7 класс</item>
+        <item>8 класс</item>
+        <item>9 класс</item>
+        <item>10 класс</item>
+        <item>11 класс(Подготовка в ЦТ)</item>
+    </string-array>
+
+    <string name="enter_button">Вход</string>
+    <string name="register_link">Регистрация</string>
+    <string name="title_activity_login">Вход</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+</resources>

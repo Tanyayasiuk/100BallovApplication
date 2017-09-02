@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/basic_schedule"
+            android:icon="@drawable/ic_schedule"
+            android:title="@string/schedule" />
+        <item
+            android:id="@+id/basic_enroll"
+            android:icon="@drawable/ic_content_paste"
+            android:title="@string/enroll" />
+        <item
+            android:id="@+id/basic_contacts"
+            android:icon="@drawable/ic_contacts"
+            android:title="@string/contacts" />
+        <item
+            android:id="@+id/basic_about"
+            android:icon="@drawable/ic_info_outline"
+            android:title="@string/about_us" />
+    </group>
+
+    <item android:title=""
+        android:checked="false">
+        <menu>
+            <item
+                android:id="@+id/basic_enter"
+                android:icon="@drawable/ic_account_circle"
+                android:title="@string/enter_button" />
+            <item
+                android:id="@+id/basic_reg"
+                android:icon="@drawable/ic_schedule"
+                android:title="@string/register_link" />
+        </menu>
+    </item>
+
+</menu>
