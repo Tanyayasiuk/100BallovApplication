@@ -5,18 +5,32 @@ import android.widget.ImageView;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Teacher implements DomainModel {
+public class Teacher {
 
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("surname")
     private String surname;
+
+    @SerializedName("education")
     private String education;
+
+    @SerializedName("additional")
     private String additional;
+
+    @SerializedName("lessontype")
     private String lessontype;
+
+    @SerializedName("classes")
     private String classes;
+
+    @SerializedName("comment")
     private String comment;
+
+    @SerializedName("imageUrl")
     private String imageUrl;
 
-    private ImageView view;
 
     public String getName() {
         return name;

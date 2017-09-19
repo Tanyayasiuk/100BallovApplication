@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.util.Log;
-import android.widget.ImageView;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
-import com.bumptech.glide.Glide;
+import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseViewModel;
 import com.example.studying.domain.entity.Teacher;
 import com.example.studying.domain.interaction.GetTeacherInfoUseCase;
@@ -20,6 +21,7 @@ public class FragmentViewModel implements BaseViewModel {
     private String teachersName;
     public enum STATE {PROGRESS, DATA};
 
+    //public WebView mWebView;
 
     public FragmentViewModel(Activity activity, String teachersName){
         this.activity = activity;
@@ -51,14 +53,22 @@ public class FragmentViewModel implements BaseViewModel {
     @Override
     public void resume() {
 
+       /* For html page and fragment_two usage
+        * (change binding and layout in FragmnetOne onCreateView*//*
+        mWebView = activity.findViewById(R.id.webView);
+        mWebView.setWebViewClient(new MyWebViewClient());
+        mWebView.getSettings().setSupportZoom(true);
+        mWebView.getSettings().setBuiltInZoomControls(true);
+        // указываем страницу загрузки
+        mWebView.loadUrl("https://api.backendless.com/D98411AD-4158-F507-FF34-CC7C7669CF00/A6BF2F37-9F1B-437A-FF10-82EE9CECF100/files/Ivan.html");
+
+*/
         // Getting the teacher's profile to show depending on their name
         useCase.execute(teachersName, new DisposableObserver<Teacher>() {
             @Override
             public void onNext(@NonNull Teacher teachers) {
                 name.set(teachers.getName());
-                Log.e("SSS1", String.valueOf(name));
                 surname.set(teachers.getSurname());
-                Log.e("SSS1", surname.toString());
                 education.set(teachers.getEducation());
                 additional.set(teachers.getAdditional());
                 lessontype.set(teachers.getLessontype());
@@ -81,12 +91,22 @@ public class FragmentViewModel implements BaseViewModel {
             }
         });
 
-
     }
 
     @Override
     public void pause() {
         useCase.dispose();
     }
+
+    /* //For html-page
+    private class MyWebViewClient extends WebViewClient
+    {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url)
+        {
+            view.loadUrl(url);
+            return true;
+        }
+    }*/
 
 }

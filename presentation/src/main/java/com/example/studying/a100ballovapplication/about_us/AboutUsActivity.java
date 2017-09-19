@@ -1,3 +1,4 @@
+/*
 package com.example.studying.a100ballovapplication.about_us;
 
 import android.os.Bundle;
@@ -52,3 +53,4 @@ public class AboutUsActivity extends FragmentActivity {
         fragmentTransaction.commit(); //"выполнить"
     }
 }
+*/

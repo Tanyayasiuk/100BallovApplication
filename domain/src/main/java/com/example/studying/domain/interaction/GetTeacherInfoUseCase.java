@@ -20,6 +20,7 @@ public class GetTeacherInfoUseCase extends UseCase<String, Teacher> {
 
     @Override
     protected Observable<Teacher> buildUseCase(String name) {
+        Log.e("SSS", "GetTeacherInfoUseCase");
         return RestService.getInstance().getProfile(name).map(new Function<Profile, Teacher>() {
             @Override
             public Teacher apply(@NonNull Profile profile) throws Exception {

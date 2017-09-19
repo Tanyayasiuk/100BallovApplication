@@ -17,10 +17,11 @@ public class ContactsActivity extends BaseFragmentActivity{
         setContentView(R.layout.fragment_contacts);
     }
 
-    public static void showFragment(FragmentManager manager, Fragment fragment){
+ public static void showFragment(FragmentManager manager, Fragment fragment){
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
-        //fragmentTransaction.addToBackStack(null); // добавление в историю (?????)
-        fragmentTransaction.commit(); //"выполнить"
+        //fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
 }

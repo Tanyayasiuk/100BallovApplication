@@ -1,26 +1,23 @@
 package com.example.studying.a100ballovapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.studying.a100ballovapplication.about_us.AboutUsActivity;
-import com.example.studying.a100ballovapplication.about_us.FragmentOne;
-import com.example.studying.a100ballovapplication.contacts.ContactsActivity;
-import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
+import com.example.studying.a100ballovapplication.login.LoginActivity;
+import com.example.studying.a100ballovapplication.registration.RegistrationActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Intent newIntent = new Intent(MainActivity.this, BasicNotLoggedActivity.class);
@@ -69,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NavDrawActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -78,7 +75,9 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Здесь будет ссылка на  страницу регистрации. А пока:
+                Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+
                 Log.e("SSS", "Register - onClick");
             }
         });

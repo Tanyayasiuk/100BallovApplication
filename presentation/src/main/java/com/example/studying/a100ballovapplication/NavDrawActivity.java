@@ -18,13 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.studying.a100ballovapplication.about_us.AboutUsActivity;
-import com.example.studying.a100ballovapplication.about_us.FragmentOne;
 import com.example.studying.a100ballovapplication.about_us.ParentFragmentOne;
-import com.example.studying.a100ballovapplication.about_us.SampleFragmentPagerAdapter;
 import com.example.studying.a100ballovapplication.contacts.ContactsActivity;
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
-import com.example.studying.a100ballovapplication.databinding.FragmentContactsBinding;
 
 public class NavDrawActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

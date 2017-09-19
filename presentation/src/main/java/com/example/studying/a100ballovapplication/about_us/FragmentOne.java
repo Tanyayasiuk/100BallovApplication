@@ -29,14 +29,7 @@ public class FragmentOne extends BaseFragment {
 
     public static FragmentOne newInstance(FragmentManager manager, String teachersName) {
 
-        Fragment fragment = manager.findFragmentByTag(FragmentOne.class.getName());
-        FragmentOne fragmentOne;
-        if(fragment != null && fragment instanceof FragmentOne){
-            fragmentOne = (FragmentOne) fragment;
-        } else {
-            fragmentOne = new FragmentOne();
-        }
-
+        FragmentOne fragmentOne = new FragmentOne();
         Bundle args = new Bundle();
         args.putString(ARG_NAME, teachersName);
         fragmentOne.setArguments(args);

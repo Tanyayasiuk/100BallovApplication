@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:inputType="text"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor"/>
 
             <TextView
                 android:id="@+id/student_phone_enroll"

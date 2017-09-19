@@ -65,9 +65,22 @@
         <item>11 класс(Подготовка в ЦТ)</item>
     </string-array>
 
+    <string-array name="add_class_list">
+        <item> </item>
+        <item>4 класс</item>
+        <item>6 класс</item>
+        <item>7 класс</item>
+        <item>8 класс</item>
+        <item>9 класс</item>
+        <item>10 класс</item>
+        <item>11 класс</item>
+    </string-array>
+
     <string name="enter_button">Вход</string>
     <string name="register_link">Регистрация</string>
     <string name="title_activity_login">Вход</string>
+    <string name="email_login">email</string>
+    <string name="password_hint">password</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -81,5 +94,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="class_s">Класс</string>
+    <string name="enter">Войти</string>
+    <string name="login">login</string>
 
 </resources>

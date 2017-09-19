@@ -8,68 +8,6 @@
     tools:context="com.example.studying.a100ballovapplication.MainActivity"
     android:background="@drawable/grad_blue_land">
 
-
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="4"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="50dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/gridLayout"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.497">
-
-        <Button
-            android:id="@+id/schedule_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/Transparent100"
-            android:alpha="0.8"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableTop="@drawable/ic_schedule"
-            android:text="@string/schedule"
-            android:textColor="@color/icons"/>
-        <Button
-            android:id="@+id/enroll_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/Transparent100"
-            android:alpha="0.8"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableTop="@drawable/ic_content_paste"
-            android:text="@string/enroll"
-            android:textColor="@color/icons"/>
-        <Button
-            android:id="@+id/contacts_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/Transparent80"
-            android:alpha="0.8"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableTop="@drawable/ic_contacts"
-            android:text="@string/contacts"
-            android:textColor="@color/icons"/>
-        <Button
-            android:id="@+id/about_us_button"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@color/Transparent80"
-            android:alpha="0.8"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:drawableTop="@drawable/ic_info_outline"
-            android:text="@string/about_us"
-            android:textColor="@color/icons"/>
-    </GridLayout>
-
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -80,9 +18,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/enter_button"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        android:layout_marginTop="10dp"
-        app:layout_constraintHorizontal_bias="0.501" />
+        app:layout_constraintHorizontal_bias="0.498"
+        android:layout_marginTop="51dp"
+        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
     <TextView
         android:id="@+id/register_link"
         android:layout_width="wrap_content"
@@ -94,6 +32,76 @@
         app:layout_constraintTop_toTopOf="@+id/enter_button"
         android:layout_marginTop="55dp"
         android:clickable="true"/>
+
+    <LinearLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="50dp"
+        android:weightSum="1"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <Button
+            android:id="@+id/schedule_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:alpha="0.8"
+            android:background="@color/Transparent100"
+            android:drawableTop="@drawable/ic_schedule"
+            android:text="@string/schedule"
+            android:textColor="@color/icons"
+            app:layout_constraintRight_toLeftOf="@+id/enroll_button"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        <Button
+            android:id="@+id/enroll_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0.53"
+            android:alpha="0.8"
+            android:background="@color/Transparent100"
+            android:drawableTop="@drawable/ic_content_paste"
+            android:text="@string/enroll"
+            android:textColor="@color/icons"
+            app:layout_constraintBottom_toBottomOf="@+id/schedule_button"
+            app:layout_constraintRight_toLeftOf="@+id/contacts_button"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/contacts_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="8dp"
+            android:alpha="0.8"
+            android:background="@color/Transparent80"
+            android:drawableTop="@drawable/ic_contacts"
+            android:text="@string/contacts"
+            android:textColor="@color/icons" />
+
+        <Button
+            android:id="@+id/about_us_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="8dp"
+            android:alpha="0.8"
+            android:background="@color/Transparent80"
+            android:drawableTop="@drawable/ic_info_outline"
+            android:text="@string/about_us"
+            android:textColor="@color/icons"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

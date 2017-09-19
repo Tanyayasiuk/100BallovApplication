@@ -61,16 +61,13 @@ public class EnrollFragment extends BaseFragment {
         binding.spinner.setAdapter(adapter);
         binding.spinner.setAlpha(0.7f);
 
+
         // обработчик нажатия
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO Запихнуть сюда логику onItemSelected (класс)
 
-                /* При поворачивании экрана на строку с цветом - NPE ((
-               ((TextView) adapterView.getChildAt(0)).setTextColor(Color.DKGRAY);
-                ((TextView) adapterView.getChildAt(0)).setTextSize(14);*/
-                //Toast.makeText(getContext(), "Position = " + i, Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -85,4 +82,8 @@ public class EnrollFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
+
+
 }

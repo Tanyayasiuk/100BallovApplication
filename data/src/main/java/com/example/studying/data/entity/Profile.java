@@ -4,9 +4,6 @@ import android.widget.ImageView;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by ОК on 27.08.2017.
- */
 
 public class Profile implements DataModel {
 
@@ -21,7 +18,7 @@ public class Profile implements DataModel {
     private String comment;
     private String imageUrl;
 
-    private ImageView view;
+    //private ImageView view;
 
     public String getName() {
         return name;

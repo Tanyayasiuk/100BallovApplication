@@ -1,9 +1,11 @@
 package com.example.studying.a100ballovapplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,12 +16,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.studying.a100ballovapplication.about_us.FragmentOne;
 import com.example.studying.a100ballovapplication.about_us.ParentFragmentOne;
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
 import com.example.studying.a100ballovapplication.enroll.EnrollFragment;
+import com.example.studying.a100ballovapplication.schedule.ChooseFragment;
+import com.example.studying.a100ballovapplication.schedule.ScheduleFragment;
 
 
 public class BasicNotLoggedActivity extends AppCompatActivity
@@ -53,16 +60,19 @@ public class BasicNotLoggedActivity extends AppCompatActivity
             fragment = ContactsFragment.newInstance(getSupportFragmentManager());
         } else if(fragmentType.equals("Записаться")){
             fragment = EnrollFragment.newInstance(getSupportFragmentManager());
+        } else if (fragmentType.equals("Расписание")){
+            DialogFragment dlg1 = new ChooseFragment();
+            dlg1.show(getSupportFragmentManager(), "");
+            fragment = ContactsFragment.newInstance(getSupportFragmentManager());
         } else {
             fragment = ContactsFragment.newInstance(getSupportFragmentManager());
         }
 
-        if(savedInstanceState == null) {
+        if(savedInstanceState == null && !fragmentType.equals("Расписание")) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container_basic, fragment, fragment.getClass().getName()).commit();
-
-            setTitle(fragmentType);
+            fragmentTransaction.replace(R.id.container_basic, fragment).commit();
         }
+        setTitle(fragmentType);
     }
 
     @Override
@@ -75,7 +85,9 @@ public class BasicNotLoggedActivity extends AppCompatActivity
 
         switch(item.getItemId()) {
             case R.id.basic_schedule:
-                fragmentClass = ContactsFragment.class;
+                DialogFragment dlg1 = new ChooseFragment();
+                dlg1.show(getSupportFragmentManager(), "");
+                fragmentClass = ScheduleFragment.class;
                 break;
             case R.id.basic_enroll:
                 fragmentClass = EnrollFragment.class;
@@ -84,22 +96,24 @@ public class BasicNotLoggedActivity extends AppCompatActivity
                 fragmentClass = ContactsFragment.class;
                 break;
             case R.id.basic_about:
-                //TODO Разобраться с косяком загрузки в этом месте
                 fragmentClass = ParentFragmentOne.class;
                 break;
             default:
                 fragmentClass = ContactsFragment.class;
         }
 
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (item.getItemId() != R.id.basic_schedule) {
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        // Вставить фрагмент, заменяя любой существующий
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container_basic, fragment).commit();
+            // Вставить фрагмент, заменяя любой существующий
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container_basic, fragment).commit();
+
+        }
 
         // Выделение существующего элемента с помощью NavigationView
         item.setChecked(true);
@@ -122,5 +136,17 @@ public class BasicNotLoggedActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+    }
+
 
 }

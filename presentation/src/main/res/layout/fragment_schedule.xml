@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.studying.a100ballovapplication.schedule.ScheduleFragmentViewModel.STATE"/>
+        <variable
+            name="view"
+            type="com.example.studying.a100ballovapplication.schedule.ScheduleFragmentViewModel"/>
+    </data>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/icons">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/primary_dark"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="@{view.itemTitle}"
+                android:layout_marginBottom="5dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="25dp"
+                android:visibility="@{view.state == STATE.PROGRESS ? View.VISIBLE : View.GONE}"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/schedule_recycler_view"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/icons"
+                android:elevation="5dp"
+                android:clipToPadding="false">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

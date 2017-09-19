@@ -1,9 +1,5 @@
 package com.example.studying.domain.entity;
 
-/**
- * Created by ОК on 29.08.2017.
- */
-
 public class Contact implements DomainModel {
 
     private String title;
