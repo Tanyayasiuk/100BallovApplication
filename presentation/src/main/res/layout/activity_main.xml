@@ -60,6 +60,18 @@
             android:textColor="@color/icons" />
 
     </GridLayout>
+   <!-- <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Force Crash!"
+        android:onClick="forceCrash"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="-7dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+-->
     <Button
         style="@style/BaseButton"
         android:text="@string/enter_button"

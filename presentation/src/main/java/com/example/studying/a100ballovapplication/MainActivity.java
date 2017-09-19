@@ -9,8 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.example.studying.a100ballovapplication.login.LoginActivity;
 import com.example.studying.a100ballovapplication.registration.RegistrationActivity;
+import io.fabric.sdk.android.Fabric;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         final Intent newIntent = new Intent(MainActivity.this, BasicNotLoggedActivity.class);
 
@@ -67,15 +74,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, enterButton.getText());
                 startActivity(intent);
+
+                Log.e("SSS", "Enter - onClick");
             }
         });
 
-        TextView registerButton = (TextView) findViewById(R.id.register_link);
+        final TextView registerButton = (TextView) findViewById(R.id.register_link);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, registerButton.getText());
                 startActivity(intent);
 
                 Log.e("SSS", "Register - onClick");
@@ -83,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
 
+    public void forceCrash(View view) {
+        throw new RuntimeException("This is a crash");
     }
 }

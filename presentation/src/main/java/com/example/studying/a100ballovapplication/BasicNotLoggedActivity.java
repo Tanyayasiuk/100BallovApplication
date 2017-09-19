@@ -1,6 +1,7 @@
 package com.example.studying.a100ballovapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,8 @@ import com.example.studying.a100ballovapplication.about_us.FragmentOne;
 import com.example.studying.a100ballovapplication.about_us.ParentFragmentOne;
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
 import com.example.studying.a100ballovapplication.enroll.EnrollFragment;
+import com.example.studying.a100ballovapplication.login.LoginActivity;
+import com.example.studying.a100ballovapplication.registration.RegistrationActivity;
 import com.example.studying.a100ballovapplication.schedule.ChooseFragment;
 import com.example.studying.a100ballovapplication.schedule.ScheduleFragment;
 
@@ -78,47 +81,52 @@ public class BasicNotLoggedActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        //TODO Для кнопок ВХОД и РЕГИСТРАЦИЯ сделать отдельную логику (не фрагменты)
+        if (item.getItemId() == R.id.basic_enter ){
+            Intent intent = new Intent(BasicNotLoggedActivity.this, LoginActivity.class);
+            intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, item.getTitle());
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.basic_reg){
+            Intent intent = new Intent(BasicNotLoggedActivity.this, RegistrationActivity.class);
+            intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, item.getTitle());
+            startActivity(intent);
+        } else {
 
-        Fragment fragment = null;
-        Class fragmentClass;
+            Fragment fragment = null;
+            Class fragmentClass;
 
-        switch(item.getItemId()) {
-            case R.id.basic_schedule:
-                DialogFragment dlg1 = new ChooseFragment();
-                dlg1.show(getSupportFragmentManager(), "");
-                fragmentClass = ScheduleFragment.class;
-                break;
-            case R.id.basic_enroll:
-                fragmentClass = EnrollFragment.class;
-                break;
-            case R.id.basic_contacts:
-                fragmentClass = ContactsFragment.class;
-                break;
-            case R.id.basic_about:
-                fragmentClass = ParentFragmentOne.class;
-                break;
-            default:
-                fragmentClass = ContactsFragment.class;
-        }
-
-        if (item.getItemId() != R.id.basic_schedule) {
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-            } catch (Exception e) {
-                e.printStackTrace();
+            switch (item.getItemId()) {
+                case R.id.basic_schedule:
+                    DialogFragment dlg1 = new ChooseFragment();
+                    dlg1.show(getSupportFragmentManager(), "");
+                    fragmentClass = ScheduleFragment.class;
+                    break;
+                case R.id.basic_enroll:
+                    fragmentClass = EnrollFragment.class;
+                    break;
+                case R.id.basic_contacts:
+                    fragmentClass = ContactsFragment.class;
+                    break;
+                case R.id.basic_about:
+                    fragmentClass = ParentFragmentOne.class;
+                    break;
+                default:
+                    fragmentClass = ContactsFragment.class;
             }
 
-            // Вставить фрагмент, заменяя любой существующий
+            if (item.getItemId() != R.id.basic_schedule) {
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Вставить фрагмент, заменяя любой существующий
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.container_basic, fragment).commit();
 
+            }
         }
-
-        // Выделение существующего элемента с помощью NavigationView
         item.setChecked(true);
-
-        //Установить заголовок тулбара
         setTitle(item.getTitle());
 
         // Закрыть navigation drawer

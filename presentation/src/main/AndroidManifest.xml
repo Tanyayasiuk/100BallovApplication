@@ -37,9 +37,14 @@
             android:label="@string/contacts"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.LoginActivity"
+            android:noHistory="true"/>
         <activity android:name=".registration.RegistrationActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8848c683a58732de38dc2ceb508f3f84da15f2b3" />
     </application>
 
 </manifest>
