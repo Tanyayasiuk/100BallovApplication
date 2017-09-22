@@ -34,7 +34,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:visibility="@{view.state == STATE.PROGRESS ? View.VISIBLE : View.GONE}"/>
 
             <android.support.v7.widget.RecyclerView

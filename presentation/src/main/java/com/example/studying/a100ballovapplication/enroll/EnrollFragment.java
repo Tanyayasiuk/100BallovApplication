@@ -58,12 +58,12 @@ public class EnrollFragment extends BaseFragment {
                 ArrayAdapter.createFromResource(getContext(), R.array.class_list, R.layout.spinner_item_my);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_my);
 
-        binding.spinner.setAdapter(adapter);
-        binding.spinner.setAlpha(0.7f);
+        binding.spinnerEnroll.setAdapter(adapter);
+        binding.spinnerEnroll.setAlpha(0.7f);
 
 
         // обработчик нажатия
-        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerEnroll.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 

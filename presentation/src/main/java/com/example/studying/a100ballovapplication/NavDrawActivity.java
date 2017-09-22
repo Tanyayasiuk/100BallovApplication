@@ -21,13 +21,24 @@ import android.view.MenuItem;
 import com.example.studying.a100ballovapplication.about_us.ParentFragmentOne;
 import com.example.studying.a100ballovapplication.contacts.ContactsActivity;
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
+import com.example.studying.domain.entity.AuthState;
+import com.example.studying.domain.interaction.AuthService;
+
+import javax.inject.Inject;
+
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
 
 public class NavDrawActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @Inject
+    public AuthService authService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.appComponent.inject(this);
         setContentView(R.layout.activity_nav_draw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,7 +87,23 @@ public class NavDrawActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
+            authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
+                @Override
+                public void onNext(@NonNull AuthState authState) {
+                    //проверяем состояние авторизации
+                    //если подписаны -
+                    if(authState.isSigned()) {
+
+                    }
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {}
+
+                @Override
+                public void onComplete() {}
+            });
             return true;
         }
 

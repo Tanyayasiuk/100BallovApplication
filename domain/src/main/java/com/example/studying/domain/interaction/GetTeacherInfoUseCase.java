@@ -2,7 +2,7 @@ package com.example.studying.domain.interaction;
 
 import android.util.Log;
 
-import com.example.studying.data.entity.Profile;
+import com.example.studying.data.entity.TeacherProfile;
 import com.example.studying.data.net.RestService;
 import com.example.studying.domain.entity.Teacher;
 import com.example.studying.domain.interaction.base.UseCase;
@@ -21,9 +21,9 @@ public class GetTeacherInfoUseCase extends UseCase<String, Teacher> {
     @Override
     protected Observable<Teacher> buildUseCase(String name) {
         Log.e("SSS", "GetTeacherInfoUseCase");
-        return RestService.getInstance().getProfile(name).map(new Function<Profile, Teacher>() {
+        return RestService.getInstance().getProfile(name).map(new Function<TeacherProfile, Teacher>() {
             @Override
-            public Teacher apply(@NonNull Profile profile) throws Exception {
+            public Teacher apply(@NonNull TeacherProfile profile) throws Exception {
                 Teacher teacher = new Teacher();
                 teacher.setName(profile.getName());
                 teacher.setSurname(profile.getSurname());

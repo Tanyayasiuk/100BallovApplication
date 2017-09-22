@@ -30,7 +30,7 @@ public class ChooseFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog, null, false);
 
         Spinner spin;
-        spin = (Spinner)view.findViewById(R.id.spinner1);
+        spin = (Spinner)view.findViewById(R.id.spinner_dialog);
         Log.e("SSS", "Spinner is set" + spin.toString());
         ArrayAdapter<?> adapter =
                 ArrayAdapter.createFromResource(getContext(), R.array.class_list, R.layout.spinner_item_my);

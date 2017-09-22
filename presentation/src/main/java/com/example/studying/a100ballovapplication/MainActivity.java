@@ -13,10 +13,9 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.example.studying.a100ballovapplication.login.LoginActivity;
+import com.example.studying.a100ballovapplication.news.NewsActivity;
 import com.example.studying.a100ballovapplication.registration.RegistrationActivity;
 import io.fabric.sdk.android.Fabric;
-
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,10 +24,18 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
         final Intent newIntent = new Intent(MainActivity.this, BasicNotLoggedActivity.class);
 
+        final Button askButton = (Button) findViewById(R.id.ask_button);
+        askButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+                //newIntent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, askButton.getText());
+                startActivity(intent);
+            }
+        });
 
         final Button aboutUsButton = (Button) findViewById(R.id.about_us_button);
         aboutUsButton.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
                 intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, registerButton.getText());
                 startActivity(intent);
-
                 Log.e("SSS", "Register - onClick");
             }
         });

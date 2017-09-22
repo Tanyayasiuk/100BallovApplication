@@ -2,9 +2,11 @@ package com.example.studying.data.net;
 
 import android.util.Log;
 
-//import com.example.studying.data.entity.Profile;
+import com.example.studying.data.entity.AccessTokenData;
 import com.example.studying.data.entity.ContactProfile;
-import com.example.studying.data.entity.Profile;
+import com.example.studying.data.entity.Enrollment;
+import com.example.studying.data.entity.TeacherProfile;
+import com.example.studying.data.entity.StudentLoginData;
 import com.example.studying.data.entity.ScheduleProfile;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,6 +15,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -44,19 +49,19 @@ public class RestService {
         Gson gson = new GsonBuilder().create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.backendless.com/D98411AD-4158-F507-FF34-CC7C7669CF00/A6BF2F37-9F1B-437A-FF10-82EE9CECF100/")
+                .baseUrl("https://api.backendless.com/33732170-B3D2-FFA4-FFD4-AF51778ED800/2A2D1BDE-8799-18BF-FF1E-EB4D95DC0A00/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
 
-        Log.e("AAA", "RETROFIT");
+
+        Log.e("SSS", "RETROFIT");
         restAPI = retrofit.create(RestAPI.class);
     }
 
-
-   public Observable<Profile> getProfile (String name){
-       Log.e("SSS", "Observable<Profile> getProfile");
+   public Observable<TeacherProfile> getProfile (String name){
+       Log.e("SSS", "Observable<TeacherProfile> getProfile");
        String title = name + ".json";
        return restAPI.getProfiles(title);
    }
@@ -76,6 +81,35 @@ public class RestService {
         Log.e("SSS", condition);
         return restAPI.getClassProfiles(condition);
     }
+
+    public Observable<AccessTokenData> login(StudentLoginData studentLoginData){
+
+        Log.e("SSS", "RestAPI login method called");
+
+        final Observable<AccessTokenData> token = restAPI.login(studentLoginData)
+                .map(new Function<StudentLoginData, AccessTokenData>() {
+                    @Override
+                    public AccessTokenData apply(@NonNull StudentLoginData loginData) throws Exception {
+                        AccessTokenData tokenData = new AccessTokenData();
+                        tokenData.setAccessToken(loginData.getToken());
+                        Log.e("SSS", loginData.getToken());
+                        return tokenData;
+                    }
+                });
+        Log.e("SSS", "почти...");
+        return token;
+    }
+
+    public Observable<StudentLoginData> createUser(StudentLoginData loginData){
+        Log.e("SSS", "attempt to create a new user");
+        return restAPI.register(loginData);
+    }
+
+    public Observable<Void> enroll(Enrollment enroll){
+        Log.e("SSS", "attempt to send email...");
+        return restAPI.sendEnrollment(enroll);
+    }
+
 
 
 

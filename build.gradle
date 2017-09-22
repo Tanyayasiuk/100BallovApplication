@@ -19,10 +19,7 @@ allprojects {
 }
 
 task loadToFabric(dependsOn: "assembleDeveloperDebug"){
-   /* def task = tasks.getByName("crashlyticsUploadDistributionDeveloperDebug")
-    task.ext.betaDistributionReleaseNotes = ""
-    task.ext.betaDistributionGroupAliases = ""
-    task.execute()*/
+
 }
 
 task clean(type: Delete) {

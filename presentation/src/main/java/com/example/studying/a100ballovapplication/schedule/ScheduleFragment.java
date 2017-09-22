@@ -27,7 +27,6 @@ import java.util.List;
 
 
 public class ScheduleFragment extends BaseFragment{
-    //TODO Показывать выбранный класс
 
     private ScheduleFragmentViewModel sfViewModel;
     int classNum;

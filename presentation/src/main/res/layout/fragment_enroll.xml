@@ -24,8 +24,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:visibility="invisible"/>
-            <!--android:visibility="@{view.state == STATE.PROGRESS ? View.VISIBLE : View.GONE}"/>-->
+            android:visibility="@{view.state == STATE.PROGRESS ? View.VISIBLE : View.GONE}"/>
 
 
         <TableLayout
@@ -50,9 +49,11 @@
                 android:layout_marginTop="15dp"
                 android:text="@string/parent_enroll" />
             <EditText
+                android:id="@+id/parent_surname_input"
                 android:labelFor="@id/parent_enroll"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:text="@={view.parentSurname}"
                 android:inputType="text"
                 tools:ignore="LabelFor" />
 
@@ -64,9 +65,12 @@
                 android:text="@string/parent_phone_enroll" />
 
             <EditText
+                android:id="@+id/parent_phone_input"
                 android:labelFor="@+id/parent_phone_enroll"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
+                android:text="@={view.parentPhone}"
+                android:maxLength="13"
                 android:inputType="phone"
                 tools:ignore="LabelFor" />
 
@@ -78,9 +82,11 @@
                 android:text="@string/email" />
 
             <EditText
+                android:id="@+id/email_input"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:inputType="textWebEmailAddress"
+                android:text="@={view.emailInput}"
                 tools:ignore="LabelFor" />
 
             <TextView
@@ -91,9 +97,11 @@
                 android:text="@string/student_enroll" />
 
             <EditText
+                android:id="@+id/student_name_input"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:inputType="text"
+                android:text="@={view.studentName}"
                 tools:ignore="LabelFor"/>
 
             <TextView
@@ -104,9 +112,12 @@
                 android:text="@string/student_phone_enroll" />
 
             <EditText
+                android:id="@+id/student_phone_input"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:inputType="phone"
+                android:text="@={view.studentPhone}"
+                android:maxLength="13"
                 tools:ignore="LabelFor" />
 
             <TextView
@@ -117,7 +128,7 @@
                 android:text="@string/class_enroll" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spinner_enroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:entries="@array/class_list">

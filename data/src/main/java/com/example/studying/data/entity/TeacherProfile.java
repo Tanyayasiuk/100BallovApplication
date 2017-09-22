@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Profile implements DataModel {
+public class TeacherProfile implements DataModel {
 
     private String name;
 

@@ -21,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.example.studying.a100ballovapplication"
         minSdkVersion 17
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -48,13 +48,11 @@ android {
     productFlavors {
 
         production {
-            buildConfigField "String", "API_REST", "\"https://api.backendless.com/\""
             versionCode 1
             versionName "1.0"
         }
 
         developer {
-            buildConfigField "String", "API_REST", "\"https://test.tut.by/\""
             versionCode 1
             versionName "0.1"
         }
@@ -82,6 +80,8 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
     annotationProcessor 'com.android.databinding:compiler:2.3.0'
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     compile project(path: ':domain')
@@ -91,6 +91,11 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
         transitive = true;
     }
+
+    compile "com.google.dagger:dagger:2.8"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.8"
+
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 
 }
 

@@ -1,28 +1,45 @@
 package com.example.studying.a100ballovapplication.login;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.studying.a100ballovapplication.NavDrawActivity;
 import com.example.studying.a100ballovapplication.R;
+import com.example.studying.a100ballovapplication.base.BaseView;
 
 import static com.example.studying.a100ballovapplication.BasicNotLoggedActivity.KEY_FRAGMENT;
+import static com.example.studying.a100ballovapplication.registration.RegistrationActivity.KEY_EMAIL;
+import static com.example.studying.a100ballovapplication.registration.RegistrationActivity.KEY_PASS;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements BaseView {
+    //используется НЕ databinding
+    //можно butterknife
+
+    private LoginPresenter presenter;
+
+    private Toolbar toolbarLogin;
+    private Button enterButton;
+    private ProgressBar progressBar;
+    private EditText enterEmail;
+    private EditText enterPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Toolbar toolbarLogin = (Toolbar) findViewById(R.id.toolbar_login);
+        presenter = new LoginPresenter(this);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        toolbarLogin = (Toolbar) findViewById(R.id.toolbar_login);
         setSupportActionBar(toolbarLogin);
 
         toolbarLogin.setNavigationIcon(R.drawable.ic_arrow_back);
@@ -35,15 +52,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button enterButton = (Button) findViewById(R.id.enter_button);
+        enterButton = (Button) findViewById(R.id.enter_button);
+        enterEmail = (EditText) findViewById(R.id.enter_login);
+        enterPassword = (EditText) findViewById(R.id.enter_password);
+
+        enterEmail.setText(getIntent().getStringExtra(KEY_EMAIL));
+        enterPassword.setText(getIntent().getStringExtra(KEY_PASS));
+
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
-                startActivity(intent);
+
+                String email = enterEmail.getText().toString();
+                String password = enterPassword.getText().toString();
+                presenter.onLoginButtonClick(email, password);
             }
         });
-
     }
 
     @Override
@@ -51,5 +75,45 @@ public class LoginActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onPause();
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dismissProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showError(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void goToMainActivity() {
+        startActivity(new Intent(LoginActivity.this, NavDrawActivity.class));
+    }
+
+    @Override
+    public void logIn(String login, String password) {
+
+    }
+
+    @Override
+    public void showToast(int message) {
+
+    }
 }

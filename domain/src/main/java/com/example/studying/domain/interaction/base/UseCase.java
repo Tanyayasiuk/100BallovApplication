@@ -8,9 +8,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by ОК on 27.08.2017.
- */
 
 public abstract class UseCase<InParam, OutParam> {
     private Disposable disposable;
