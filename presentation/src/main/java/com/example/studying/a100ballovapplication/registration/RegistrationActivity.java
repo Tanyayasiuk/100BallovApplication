@@ -21,7 +21,7 @@ import com.example.studying.a100ballovapplication.login.LoginActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.studying.a100ballovapplication.BasicNotLoggedActivity.KEY_FRAGMENT;
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 
 public class RegistrationActivity extends AppCompatActivity
                     implements BaseView {
@@ -56,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
 
-        presenter = new RegistrationPresenter(this);
+        presenter = new RegistrationPresenter(this, this);
 
         toolbarReg.setTitle(getIntent().getStringExtra(KEY_FRAGMENT));
         toolbarReg.setNavigationIcon(R.drawable.ic_arrow_back);
@@ -73,9 +73,9 @@ public class RegistrationActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                String email = regEmail.getText().toString();
-                String login = regLogin.getText().toString();
-                String password = regPassword.getText().toString();
+                String email = regEmail.getText().toString().trim();
+                String login = regLogin.getText().toString().trim();
+                String password = regPassword.getText().toString().trim();
 
                 presenter.onRegistrationButtonClick(email, login, password);
 

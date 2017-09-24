@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +16,7 @@ import com.example.studying.a100ballovapplication.NavDrawActivity;
 import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseView;
 
-import static com.example.studying.a100ballovapplication.BasicNotLoggedActivity.KEY_FRAGMENT;
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 import static com.example.studying.a100ballovapplication.registration.RegistrationActivity.KEY_EMAIL;
 import static com.example.studying.a100ballovapplication.registration.RegistrationActivity.KEY_PASS;
 
@@ -63,8 +64,8 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
             @Override
             public void onClick(View view) {
 
-                String email = enterEmail.getText().toString();
-                String password = enterPassword.getText().toString();
+                String email = enterEmail.getText().toString().trim();
+                String password = enterPassword.getText().toString().trim();
                 presenter.onLoginButtonClick(email, password);
             }
         });
@@ -104,7 +105,8 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
 
     @Override
     public void goToMainActivity() {
-        startActivity(new Intent(LoginActivity.this, NavDrawActivity.class));
+        startActivity(new Intent(LoginActivity.this, NavDrawActivity.class)
+                .putExtra(KEY_FRAGMENT, String.valueOf(R.string.enter_button)));
     }
 
     @Override
@@ -114,6 +116,8 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
 
     @Override
     public void showToast(int message) {
-
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

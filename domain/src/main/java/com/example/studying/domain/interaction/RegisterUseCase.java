@@ -15,11 +15,11 @@ import io.reactivex.functions.Function;
 public class RegisterUseCase extends UseCase<RegisterDomain, RegisterDomain> {
 
     //?? нужен ли здесь вообще этот сервис??
-    AuthService authService;
+    //AuthService authService;
 
     @Inject
-    public RegisterUseCase(AuthService authService) {
-        this.authService = authService;
+    public RegisterUseCase(/*AuthService authService*/) {
+        /*this.authService = authService;*/
     }
 
     @Override

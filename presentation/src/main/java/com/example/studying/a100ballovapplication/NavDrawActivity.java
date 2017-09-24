@@ -1,14 +1,13 @@
 package com.example.studying.a100ballovapplication;
 
-import android.content.Intent;
+import android.content.Context;
+import android.databinding.ObservableField;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.View;
+import android.view.MotionEvent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,10 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
-import com.example.studying.a100ballovapplication.about_us.ParentFragmentOne;
-import com.example.studying.a100ballovapplication.contacts.ContactsActivity;
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
+import com.example.studying.a100ballovapplication.news.NewsFragment;
 import com.example.studying.domain.entity.AuthState;
 import com.example.studying.domain.interaction.AuthService;
 
@@ -29,28 +29,25 @@ import javax.inject.Inject;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
+
 public class NavDrawActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     public AuthService authService;
 
+    private boolean exit = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("SSS", "Main - onCreate");
         MyApplication.appComponent.inject(this);
+
         setContentView(R.layout.activity_nav_draw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,6 +57,21 @@ public class NavDrawActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Fragment fragment;
+        String fragmentType = getIntent().getStringExtra(KEY_FRAGMENT);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        if(fragmentType.equals(String.valueOf(R.string.news_item))){
+            fragment = NewsFragment.newInstance(getSupportFragmentManager());
+            //fragmentTransaction.addToBackStack(null);
+        } else  {
+            fragment = ContactsFragment.newInstance(getSupportFragmentManager());
+        }
+
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment).commit();
+
     }
 
     @Override
@@ -69,6 +81,19 @@ public class NavDrawActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+
+        if (exit) {
+            this.finish();
+        }else {
+           //Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
+           exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 1000);
         }
     }
 
@@ -93,13 +118,18 @@ public class NavDrawActivity extends AppCompatActivity
                 public void onNext(@NonNull AuthState authState) {
                     //проверяем состояние авторизации
                     //если подписаны -
+                    Log.e("SSS", "onOptionsItemSelected - check auth State");
                     if(authState.isSigned()) {
-
+                        Log.e("SSS", "isSigned");
+                        //TODO Здесь лучше мутить диалог с подтверждением и там удалять токен
+                        //TODO Вернее сделать LogOut usecase
+                        /*authService.removeAccessToken();
+                        startActivity(new Intent(NavDrawActivity.this, MainActivity.class));*/
                     }
                 }
 
                 @Override
-                public void onError(@NonNull Throwable e) {}
+                public void onError(@NonNull Throwable e) {Log.e("SSS", e.getLocalizedMessage());}
 
                 @Override
                 public void onComplete() {}
@@ -113,8 +143,12 @@ public class NavDrawActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
+
+        Fragment fragment = null;
+        Class fragmentClass = ContactsFragment.class;
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_profile) {
             Log.e("SSS", "Profile");
@@ -122,23 +156,38 @@ public class NavDrawActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_books) {
 
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_news) {
+            fragmentClass = NewsFragment.class;
             Log.e("SSS", "News");
-        } else if (id == R.id.nav_about) {
-            ParentFragmentOne fragment = (ParentFragmentOne) ParentFragmentOne.newInstance(getSupportFragmentManager());
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
         } else if (id == R.id.nav_contacts){
-            ContactsActivity.showFragment(getSupportFragmentManager(), ContactsFragment.newInstance(getSupportFragmentManager()));
+            fragmentClass = ContactsFragment.class;
+
         }
+
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
+        fragmentTransaction.commit();
 
         setTitle(item.getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 }

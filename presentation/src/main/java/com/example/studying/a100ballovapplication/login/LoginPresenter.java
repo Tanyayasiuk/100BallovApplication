@@ -1,6 +1,7 @@
 package com.example.studying.a100ballovapplication.login;
 
 import com.example.studying.a100ballovapplication.MyApplication;
+import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseView;
 import com.example.studying.domain.entity.AuthState;
 import com.example.studying.domain.entity.OkDomain;
@@ -23,7 +24,6 @@ public class LoginPresenter implements LoginBasePresenter{
     public AuthService authService;
 
     private Disposable authDisposable;
-
     private BaseView view;
 
     public LoginPresenter(BaseView view) {
@@ -34,37 +34,38 @@ public class LoginPresenter implements LoginBasePresenter{
 
     @Override
     public void onLoginButtonClick(String email, String password) {
-        view.showProgress();
-        //тут вызываем usecase
-//здесь же где-то валидация полей (пустые / нет)
-        RegisterDomain register = new RegisterDomain();
-        register.setEmail(email);
-        register.setPassword(password);
+        if(email.equals("") || password.equals("")){
+            view.showToast(R.string.error_fields_required);
+        } else {
+            view.showProgress();
+            RegisterDomain register = new RegisterDomain();
+            register.setEmail(email.trim());
+            register.setPassword(password.trim());
 
-        //отписываться от юзкейса лчше в release
-        useCase.execute(register, new DisposableObserver<OkDomain>() {
-            @Override
-            public void onNext(@NonNull OkDomain okDomain) {
-                view.dismissProgress();
-                view.goToMainActivity();
-            }
+            //отписываться от юзкейса лчше в release
+            useCase.execute(register, new DisposableObserver<OkDomain>() {
+                @Override
+                public void onNext(@NonNull OkDomain okDomain) {
+                    view.dismissProgress();
+                    view.goToMainActivity();
+                }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                view.showError("error on use case execute!" + e.getLocalizedMessage());
-            }
+                @Override
+                public void onError(@NonNull Throwable e) {
+                    view.showError("error on use case execute!" + e.getLocalizedMessage());
+                }
 
-            @Override
-            public void onComplete() {
+                @Override
+                public void onComplete() {
 
-            }
-        });
+                }
+            });
+        }
     }
-
     @Override
     public void onResume(){
 
-        authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
+        authDisposable = authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
             @Override
             public void onNext(@NonNull AuthState authState) {
                 //проверяем состояние авторизации
@@ -80,6 +81,7 @@ public class LoginPresenter implements LoginBasePresenter{
             @Override
             public void onComplete() {}
         });
+
     }
 
     @Override
@@ -89,4 +91,8 @@ public class LoginPresenter implements LoginBasePresenter{
         }
     }
 
+    @Override
+    public void onRelease() {
+        useCase.dispose();
+    }
 }

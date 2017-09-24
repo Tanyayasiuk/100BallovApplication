@@ -31,11 +31,11 @@ import com.example.studying.a100ballovapplication.registration.RegistrationActiv
 import com.example.studying.a100ballovapplication.schedule.ChooseFragment;
 import com.example.studying.a100ballovapplication.schedule.ScheduleFragment;
 
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
+
 
 public class BasicNotLoggedActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    public static final String KEY_FRAGMENT = "KEY_FRAGMENT";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class BasicNotLoggedActivity extends AppCompatActivity
 
         Fragment fragment;
         String fragmentType = getIntent().getStringExtra(KEY_FRAGMENT);
+        Log.e("SSS", " KEY " + fragmentType);
 
         if (fragmentType.equals("О нас")){
             fragment = (ParentFragmentOne) ParentFragmentOne.newInstance(getSupportFragmentManager());
@@ -72,6 +73,7 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         }
 
         if(savedInstanceState == null && !fragmentType.equals("Расписание")) {
+            Log.e("SSS", "  if(savedInstanceState == null && !fragmentType.equal ");
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container_basic, fragment).commit();
         }
@@ -83,11 +85,11 @@ public class BasicNotLoggedActivity extends AppCompatActivity
 
         if (item.getItemId() == R.id.basic_enter ){
             Intent intent = new Intent(BasicNotLoggedActivity.this, LoginActivity.class);
-            intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, item.getTitle());
+            intent.putExtra(KEY_FRAGMENT, item.getTitle());
             startActivity(intent);
         } else if (item.getItemId() == R.id.basic_reg){
             Intent intent = new Intent(BasicNotLoggedActivity.this, RegistrationActivity.class);
-            intent.putExtra(BasicNotLoggedActivity.KEY_FRAGMENT, item.getTitle());
+            intent.putExtra(KEY_FRAGMENT, item.getTitle());
             startActivity(intent);
         } else {
 

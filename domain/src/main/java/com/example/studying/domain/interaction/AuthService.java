@@ -3,6 +3,7 @@ package com.example.studying.domain.interaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.studying.domain.entity.AuthState;
 
@@ -38,11 +39,12 @@ public class AuthService {
         state.onNext(new AuthState(true));
     }
 
-    void removeAccessToken(){
+     void removeAccessToken(){
         //удаляем токен, затем уведомляем подписчиков, что разлогинились
         SharedPreferences preferences = context
                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         preferences.edit().remove(KEY_ACCESS_TOKEN).apply();
+        Log.e("SSS", "removing AccessToken");
         state.onNext(new AuthState(false));
     }
 
@@ -59,8 +61,10 @@ public class AuthService {
         //если токен не налл - значит, мы залогинены
         if(!TextUtils.isEmpty(token)){
             state.onNext(new AuthState(true));
+            Log.e("SSS", "new AuthState(true)");
         } else {
             state.onNext(new AuthState(false));
+            Log.e("SSS", "new AuthState(false)");
         }
 
     }

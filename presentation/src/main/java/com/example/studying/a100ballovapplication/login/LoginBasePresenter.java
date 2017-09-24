@@ -8,5 +8,6 @@ public interface LoginBasePresenter {
     void onLoginButtonClick(String username, String password);
     void onPause();
     void onResume();
+    void onRelease();
 
 }
