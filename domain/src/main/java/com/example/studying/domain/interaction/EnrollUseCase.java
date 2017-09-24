@@ -1,5 +1,7 @@
 package com.example.studying.domain.interaction;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.example.studying.data.entity.Enrollment;

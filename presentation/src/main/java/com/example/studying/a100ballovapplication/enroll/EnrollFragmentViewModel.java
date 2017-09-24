@@ -36,8 +36,6 @@ public class EnrollFragmentViewModel implements BaseViewModel {
     private final String TEXTMESSAGE = "textmessage";
     private final int[] CLASSES = {0, 4, 6, 7, 8, 9, 10, 11};
 
-    Button enrollButton;
-
     public ObservableField<String> parentSurname = new ObservableField<>("");
     public ObservableField<String> parentPhone = new ObservableField<>("");
     public ObservableField<String> emailInput = new ObservableField<>("");
@@ -54,7 +52,7 @@ public class EnrollFragmentViewModel implements BaseViewModel {
     public EnrollFragmentViewModel(Activity activity) {
         MyApplication.appComponent.inject(this);
         this.activity = activity;
-           }
+    }
 
     @Override
     public void init() {
@@ -63,13 +61,12 @@ public class EnrollFragmentViewModel implements BaseViewModel {
 
     @Override
     public void release() {
-
     }
 
     @Override
     public void resume() {
 
-        enrollButton = (Button) activity.findViewById(R.id.enroll_button);
+        Button enrollButton = (Button) activity.findViewById(R.id.enroll_button);
         enrollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -101,7 +98,7 @@ public class EnrollFragmentViewModel implements BaseViewModel {
 
                             @Override
                             public void onError(@NonNull Throwable e) {
-                                Toast.makeText(activity, "Ошибка отправки. Пожалуйста, попробуйте позже", Toast.LENGTH_SHORT)
+                                Toast.makeText(activity, R.string.enroll_error, Toast.LENGTH_SHORT)
                                         .show();
                                 Log.e("SSS", "ERROR enroll useCase " + e.getLocalizedMessage());
                             }
@@ -109,6 +106,7 @@ public class EnrollFragmentViewModel implements BaseViewModel {
                             @Override
                             public void onComplete() {
                                 Log.e("SSS", "onComplete");
+                                useCase.dispose();
                             }
                         });
                     } else {
@@ -158,9 +156,11 @@ public class EnrollFragmentViewModel implements BaseViewModel {
     }
 
     private boolean isDataFull(){
-        return (!parentSurname.get().equals("") && !parentPhone.get().equals("") &&
-                !emailInput.get().equals("") && !studentName.get().equals("") &&
-                !studentPhone.get().equals(""));
+        return (!parentSurname.get().trim().equals("") &&
+                !parentPhone.get().trim().equals("") &&
+                !emailInput.get().trim().equals("") &&
+                !studentName.get().trim().equals("") &&
+                !studentPhone.get().trim().equals(""));
     }
 
     private boolean isEmailValid(String email){
