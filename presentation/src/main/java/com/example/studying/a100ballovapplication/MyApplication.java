@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.studying.a100ballovapplication.di.AppComponent;
 import com.example.studying.a100ballovapplication.di.AppModule;
 import com.example.studying.a100ballovapplication.di.DaggerAppComponent;
+import com.squareup.leakcanary.LeakCanary;
 
 
 public class MyApplication extends Application {
@@ -14,7 +15,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-/*
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
@@ -22,7 +22,7 @@ public class MyApplication extends Application {
         }
         LeakCanary.install(this);
 
-        Realm.init(this);*/
+        //Realm.init(this);
 
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))

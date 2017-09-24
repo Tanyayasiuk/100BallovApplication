@@ -2,7 +2,12 @@ package com.example.studying.a100ballovapplication.di;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 
+
+import com.example.studying.a100ballovapplication.base.BaseView;
+import com.example.studying.a100ballovapplication.registration.RegistrationPresenter;
+import com.example.studying.domain.interaction.RegisterDeviceUseCase;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,7 +17,6 @@ import dagger.Provides;
 public class AppModule {
 
     private Context context;
-    private Activity activity;
 
     public AppModule(Context context){
         this.context = context;
@@ -24,7 +28,12 @@ public class AppModule {
     }
 
     @Provides
-    public Activity provideActivity(){return activity;}
+    public RegisterDeviceUseCase registerDeviceUseCase(){
+        return new RegisterDeviceUseCase();
+    }
+
+
+
 
 
 }

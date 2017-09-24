@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type = "android.view.View"/>
+        <import type="java.lang.String"/>
+        <variable
+            name="item"
+            type="com.example.studying.a100ballovapplication.news.NewsItemViewModel"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/item_start_end_padding"
+        android:layout_marginStart="@dimen/item_start_end_padding"
+        android:layout_marginEnd="@dimen/item_extra_end_padding"
+        android:layout_marginRight="@dimen/item_start_end_padding"
+        android:background="#e0f7fa"
+        android:elevation="2dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.title}"
+            android:textSize="@dimen/header_text_size"
+            android:textStyle="bold"
+            android:elevation="2dp"
+            android:layout_marginBottom="2dp"
+            android:hint="title"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(item.date)}"
+            android:textSize="@dimen/date_text_size"
+            android:textStyle="italic"
+            android:elevation="2dp"
+            android:layout_marginBottom="5dp"
+            android:hint="date"
+            tools:ignore="HardcodedText" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="5dp"
+            android:elevation="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@{item.newsText}"
+            android:autoLink="web"
+            android:layout_marginStart="5dp"
+            android:hint="news' text"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+</layout>

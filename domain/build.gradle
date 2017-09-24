@@ -29,6 +29,7 @@ dependencies {
     compile project(path: ':data')
 
     compile 'javax.inject:javax.inject:1'
+    compile 'com.backendless:backendless:4.0.3'
 }
 repositories {
     mavenCentral()

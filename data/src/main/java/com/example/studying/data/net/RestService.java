@@ -5,6 +5,10 @@ import android.util.Log;
 import com.example.studying.data.entity.AccessTokenData;
 import com.example.studying.data.entity.ContactProfile;
 import com.example.studying.data.entity.Enrollment;
+import com.example.studying.data.entity.Message;
+import com.example.studying.data.entity.NewsData;
+import com.example.studying.data.entity.RegisterRequest;
+import com.example.studying.data.entity.RegisterResponse;
 import com.example.studying.data.entity.TeacherProfile;
 import com.example.studying.data.entity.StudentLoginData;
 import com.example.studying.data.entity.ScheduleProfile;
@@ -111,6 +115,20 @@ public class RestService {
     }
 
 
+    public Observable<RegisterResponse> publish(Message message){
+        Log.e("SSS", "trying to publish...");
+        return restAPI.publish(message);
+    }
+
+    public Observable<Void> subscribe (String channel){
+        Log.e("SSS", "establishing subscription...");
+        return restAPI.subscribe(channel);
+    }
+
+    public Observable<List<NewsData>> getNews(){
+        Log.e("SSS", "getting news...");
+        return restAPI.getNews();
+    }
 
 
 }
