@@ -102,13 +102,12 @@ public class NewsFragmentViewModel implements BaseViewModel {
                     postUseCase.execute(news, new DisposableObserver<OkDomain>() {
                         @Override
                         public void onNext(@NonNull OkDomain okDomain) {
-                            Log.e("SSS", "Сработало!");
                             message.set("");
                         }
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            Log.e("SSS", "F*ck! " + e.getLocalizedMessage());
+                            Log.e("SSS", e.getLocalizedMessage());
                         }
 
                         @Override
