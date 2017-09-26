@@ -34,7 +34,6 @@ public class EnrollFragmentViewModel implements BaseViewModel {
     private Activity activity;
     public enum STATE {PROGRESS, DATA};
     private final String TEXTMESSAGE = "textmessage";
-    private final int[] CLASSES = {0, 4, 6, 7, 8, 9, 10, 11};
 
     public ObservableField<String> parentSurname = new ObservableField<>("");
     public ObservableField<String> parentPhone = new ObservableField<>("");
@@ -55,13 +54,10 @@ public class EnrollFragmentViewModel implements BaseViewModel {
     }
 
     @Override
-    public void init() {
-
-    }
+    public void init() {}
 
     @Override
-    public void release() {
-    }
+    public void release() {}
 
     @Override
     public void resume() {
@@ -150,7 +146,7 @@ public class EnrollFragmentViewModel implements BaseViewModel {
                 .append(studentPhone.get())
                 .append("\n")
                 .append(activity.getString(R.string.class_enroll))
-                .append(CLASSES[spinner.getSelectedItemPosition()]);
+                .append(spinner.getSelectedItem());
         Log.e("SSS", activity.getString(R.string.new_enrollment));
         return enrollmentBuilder.toString();
     }

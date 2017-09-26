@@ -4,14 +4,17 @@ import java.util.HashMap;
 
 public class Message implements DataModel {
 
-    private String message;
+    //Headers to form push-notifications according to Backendless' rules
+    public static final String TICKER = "android-ticker-text";
+    public static final String CONTENT_TITLE = "android-content-title";
+    public static final String TITLE = "Новости";
+    public static final String CONTENT_TEXT= "android-content-text";
 
-    //All of the following are optional
-    private HashMap<String, String> headers; //{"key1":"value1","key2":"value2"}
+    private String message;
+    private HashMap<String, String> headers; //{"key1":"value1","key2":"value2"} using the headers above
+    //optional:
     private String pushPolicy; // "PUBSUB" | "PUSH" | "BOTH"
-    private String publishAt; //timestamp // the value in milliseconds
-    private String repeatEvery;//frequency-in-seconds
-    private String repeatExpiresAt; //expiration-timestamp
+
 
     public String getMessage() {
         return message;

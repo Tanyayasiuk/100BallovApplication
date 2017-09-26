@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
-;
+
 import com.example.studying.a100ballovapplication.R;
 
 
@@ -19,7 +18,6 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     public SampleFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
-        Log.e("SSS", "Starting adapter");
         this.context = context;
         this.fm = fm;
         tabTitles = new String[]{context.getString(R.string.teacher1), context.getString(R.string.teacher2)};
@@ -28,7 +26,6 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.e("SSS", "Adapter working " + position);
         return FragmentOne.newInstance(fm, tabTitles[position]);
     }
 
@@ -39,7 +36,6 @@ public class SampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        // Generate title based on item position
         return tabTitles[position];
     }
 

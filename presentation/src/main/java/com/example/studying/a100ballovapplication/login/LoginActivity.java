@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.studying.a100ballovapplication.MainActivity;
 import com.example.studying.a100ballovapplication.NavDrawActivity;
 import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseView;
@@ -58,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
         enterPassword = (EditText) findViewById(R.id.enter_password);
 
         enterEmail.setText(getIntent().getStringExtra(KEY_EMAIL));
-        enterPassword.setText(getIntent().getStringExtra(KEY_PASS));
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,13 +105,14 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
 
     @Override
     public void goToMainActivity() {
-        startActivity(new Intent(LoginActivity.this, NavDrawActivity.class)
-                .putExtra(KEY_FRAGMENT, String.valueOf(R.string.enter_button)));
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
     @Override
-    public void logIn(String login, String password) {
-
+    public void logIn(String login) {
+        Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
+        intent.putExtra(KEY_FRAGMENT, String.valueOf(R.string.profile_item));
+        startActivity(intent);
     }
 
     @Override

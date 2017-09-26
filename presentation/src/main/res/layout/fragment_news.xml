@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
         <import type="com.example.studying.a100ballovapplication.news.NewsFragmentViewModel.STATE"/>
@@ -11,17 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/icons"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@color/icons">
                 <ProgressBar
                     android:layout_width="50dp"
@@ -30,7 +26,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="10dp"
                     android:visibility="@{view.state == STATE.PROGRESS ? View.VISIBLE : View.GONE}"/>
-
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/news_recycler_view"
                     android:orientation="vertical"
@@ -38,26 +36,31 @@
                     android:layout_height="wrap_content"
                     android:background="@color/icons"
                     android:elevation="5dp"
+                    android:paddingBottom="50dp"
                     android:clipToPadding="false">
 
                 </android.support.v7.widget.RecyclerView>
+
+                </ScrollView>
             </RelativeLayout>
-        </ScrollView>
 
         <LinearLayout
+            android:id="@+id/send_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/icons"
             android:orientation="horizontal"
             android:visibility="@{view.isAdmin ? View.VISIBLE : View.GONE}">
+
             <EditText
                 android:id="@+id/add_news"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:inputType="textMultiLine"
-                android:text="@={view.message}"/>
+                android:text="@={view.message}" />
+
             <ImageButton
                 android:background="@color/icons"
                 android:id="@+id/send_news_button"

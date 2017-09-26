@@ -128,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNext(@NonNull AuthState authState) {
                 if(authState.isSigned()) {
-                    Button en = (Button) findViewById(R.id.enter_button);
-                    en.setText("Мой профиль");
                     TextView reg = (TextView) findViewById(R.id.register_link);
                     reg.setVisibility(View.GONE);
                 }

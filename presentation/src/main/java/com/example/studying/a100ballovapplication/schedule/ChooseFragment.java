@@ -42,9 +42,7 @@ public class ChooseFragment extends DialogFragment {
                 if (i != 0) {
                      int[] classes = {0, 4, 6, 7, 8, 9, 10, 11};
                      Fragment fragment = ScheduleFragment.newInstance(getActivity().getSupportFragmentManager(), classes[i]);
-                     Log.e("SSS", "on Destroy");
                      FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-
                      fragmentTransaction.replace(R.id.container_basic, fragment).commit();
                      dismiss();
 

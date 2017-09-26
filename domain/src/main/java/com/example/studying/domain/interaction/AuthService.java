@@ -18,6 +18,9 @@ import io.reactivex.subjects.BehaviorSubject;
 public class AuthService {
 
     private static final String KEY_ACCESS_TOKEN = "accessToken";
+    private static final String KEY_USER_LOGIN = "login";
+    private static final String KEY_USER_EMAIL = "email";
+    private static final String KEY_OBJECT_ID = "objectId";
     private static final String SHARED_PREFS_NAME = "sharedPrefs";
     private Context context;
     //почтальон
@@ -37,6 +40,16 @@ public class AuthService {
         preferences.edit().putString(KEY_ACCESS_TOKEN, accessToken).apply();
         //уведомляем подписчиков о том, что мы залогинены (всех, кто вызвал метод observeState())
         state.onNext(new AuthState(true));
+    }
+
+    void saveUserData (String login, String objectId, String email){
+        Log.e("SSS", "saveUserData");
+        SharedPreferences prefs = context
+                .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        prefs.edit().putString(KEY_USER_LOGIN, login)
+                          .putString(KEY_OBJECT_ID, objectId)
+                          .putString(KEY_USER_EMAIL, email)
+                          .apply();
     }
 
      void removeAccessToken(){

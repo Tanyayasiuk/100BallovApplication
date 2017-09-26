@@ -36,7 +36,7 @@ public class NewsFragment extends BaseFragment{
         nfViewModel = new NewsFragmentViewModel(getActivity());
         this.viewModel = nfViewModel;
         super.onCreate(savedInstanceState);
-        Log.e("SSS", "Schedule Fragment - onCreate");
+        Log.e("SSS", "NEws Fragment - onCreate");
     }
 
     @Nullable

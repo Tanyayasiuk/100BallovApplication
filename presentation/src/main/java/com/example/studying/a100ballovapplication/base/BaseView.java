@@ -9,7 +9,7 @@ public interface BaseView {
      void dismissProgress();
      void showError(String error);
      void goToMainActivity ();
-     void logIn(String login, String password);
+     void logIn(String login);
      void showToast(int message);
 
 

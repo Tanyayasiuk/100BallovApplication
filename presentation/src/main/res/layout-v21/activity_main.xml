@@ -95,16 +95,6 @@
             android:text="@string/about_us"
             android:textColor="@color/icons" />
     </GridLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ask"
-        android:textSize="26sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/ask_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="50dp" />
 
 </android.support.constraint.ConstraintLayout>
 

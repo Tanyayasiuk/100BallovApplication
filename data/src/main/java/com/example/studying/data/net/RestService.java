@@ -2,12 +2,10 @@ package com.example.studying.data.net;
 
 import android.util.Log;
 
-import com.example.studying.data.entity.AccessTokenData;
 import com.example.studying.data.entity.ContactProfile;
 import com.example.studying.data.entity.Enrollment;
 import com.example.studying.data.entity.Message;
 import com.example.studying.data.entity.NewsData;
-import com.example.studying.data.entity.RegisterRequest;
 import com.example.studying.data.entity.RegisterResponse;
 import com.example.studying.data.entity.TeacherProfile;
 import com.example.studying.data.entity.StudentLoginData;
@@ -19,9 +17,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -86,22 +81,10 @@ public class RestService {
         return restAPI.getClassProfiles(condition);
     }
 
-    public Observable<AccessTokenData> login(StudentLoginData studentLoginData){
 
-        Log.e("SSS", "RestAPI login method called");
-
-        final Observable<AccessTokenData> token = restAPI.login(studentLoginData)
-                .map(new Function<StudentLoginData, AccessTokenData>() {
-                    @Override
-                    public AccessTokenData apply(@NonNull StudentLoginData loginData) throws Exception {
-                        AccessTokenData tokenData = new AccessTokenData();
-                        tokenData.setAccessToken(loginData.getToken());
-                        Log.e("SSS", loginData.getToken());
-                        return tokenData;
-                    }
-                });
-        Log.e("SSS", "почти...");
-        return token;
+    public Observable<StudentLoginData> login (StudentLoginData studentLoginData){
+        Log.e("SSS", "MY login method called");
+        return restAPI.login(studentLoginData);
     }
 
     public Observable<StudentLoginData> createUser(StudentLoginData loginData){
@@ -120,14 +103,15 @@ public class RestService {
         return restAPI.publish(message);
     }
 
-    public Observable<Void> subscribe (String channel){
-        Log.e("SSS", "establishing subscription...");
-        return restAPI.subscribe(channel);
-    }
 
     public Observable<List<NewsData>> getNews(){
         Log.e("SSS", "getting news...");
         return restAPI.getNews();
+    }
+
+    public Observable<Void> addNews(NewsData newsData){
+        Log.e("SSS", "posting...");
+        return restAPI.addNews(newsData);
     }
 
 

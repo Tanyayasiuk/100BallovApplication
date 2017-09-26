@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
+import com.example.studying.a100ballovapplication.my_profile.MyProfileFragment;
 import com.example.studying.a100ballovapplication.news.NewsFragment;
 import com.example.studying.domain.entity.AuthState;
 import com.example.studying.domain.interaction.AuthService;
@@ -65,7 +66,9 @@ public class NavDrawActivity extends AppCompatActivity
         if(fragmentType.equals(String.valueOf(R.string.news_item))){
             fragment = NewsFragment.newInstance(getSupportFragmentManager());
             //fragmentTransaction.addToBackStack(null);
-        } else  {
+        } else if(fragmentType.equals(String.valueOf(R.string.profile_item))){
+            fragment = MyProfileFragment.newInstance(getSupportFragmentManager());
+        }else  {
             fragment = ContactsFragment.newInstance(getSupportFragmentManager());
         }
 
@@ -152,8 +155,7 @@ public class NavDrawActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             Log.e("SSS", "Profile");
-        } else if (id == R.id.nav_schedule) {
-
+            fragmentClass = MyProfileFragment.class;
         } else if (id == R.id.nav_books) {
 
         } else if (id == R.id.nav_news) {

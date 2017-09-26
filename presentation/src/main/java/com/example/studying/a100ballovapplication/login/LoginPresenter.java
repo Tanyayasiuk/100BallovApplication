@@ -38,7 +38,7 @@ public class LoginPresenter implements LoginBasePresenter{
             view.showToast(R.string.error_fields_required);
         } else {
             view.showProgress();
-            RegisterDomain register = new RegisterDomain();
+            final RegisterDomain register = new RegisterDomain();
             register.setEmail(email.trim());
             register.setPassword(password.trim());
 
@@ -47,12 +47,16 @@ public class LoginPresenter implements LoginBasePresenter{
                 @Override
                 public void onNext(@NonNull OkDomain okDomain) {
                     view.dismissProgress();
-                    view.goToMainActivity();
+                    view.logIn(register.getEmail());
+
+
+
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    view.showError("error on use case execute!" + e.getLocalizedMessage());
+                    view.showError("Ошибка авторизации" + e.getLocalizedMessage());
+                    view.goToMainActivity();
                 }
 
                 @Override
@@ -71,7 +75,7 @@ public class LoginPresenter implements LoginBasePresenter{
                 //проверяем состояние авторизации
                 //если подписаны -
                 if(authState.isSigned()) {
-                    view.goToMainActivity();
+                    view.logIn("authDisposable");
                 }
             }
 

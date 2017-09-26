@@ -8,11 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.studying.a100ballovapplication.MainActivity;
 import com.example.studying.a100ballovapplication.NavDrawActivity;
 import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseView;
@@ -49,6 +53,9 @@ public class RegistrationActivity extends AppCompatActivity
     @BindView(R.id.reg_password)
     EditText regPassword;
 
+    @BindView(R.id.spinner_reg)
+    Spinner spinner;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,15 +76,36 @@ public class RegistrationActivity extends AppCompatActivity
             }
         });
 
+        ArrayAdapter<?> adapter =
+                ArrayAdapter.createFromResource(this, R.array.choose_class, R.layout.spinner_item_my);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item_my);
+
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                int classNum;
                 String email = regEmail.getText().toString().trim();
                 String login = regLogin.getText().toString().trim();
                 String password = regPassword.getText().toString().trim();
+                String classString = spinner.getSelectedItem().toString();
+                try {
+                    classNum = Integer.parseInt(classString.replaceAll("\\D+",""));
+                } catch (NumberFormatException e){
+                    classNum = 0;
+                }
 
-                presenter.onRegistrationButtonClick(email, login, password);
+                Log.e("SSS", "class num = " + classNum);
+                presenter.onRegistrationButtonClick(email, login, password, classNum);
 
             }
         });
@@ -117,14 +145,13 @@ public class RegistrationActivity extends AppCompatActivity
 
     @Override
     public void goToMainActivity() {
-        startActivity(new Intent(RegistrationActivity.this, NavDrawActivity.class));
+        startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
     }
 
     @Override
-    public void logIn(String email, String password) {
+    public void logIn(String email) {
         Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
         intent.putExtra(KEY_EMAIL, email);
-        intent.putExtra(KEY_PASS, password);
         intent.putExtra(KEY_FRAGMENT, "Вход");
         startActivity(intent);
     }

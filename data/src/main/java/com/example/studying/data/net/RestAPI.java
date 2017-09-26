@@ -1,12 +1,10 @@
 package com.example.studying.data.net;
 
-import com.example.studying.data.entity.AccessTokenData;
 import com.example.studying.data.entity.Book;
 import com.example.studying.data.entity.ContactProfile;
 import com.example.studying.data.entity.Enrollment;
 import com.example.studying.data.entity.Message;
 import com.example.studying.data.entity.NewsData;
-import com.example.studying.data.entity.RegisterRequest;
 import com.example.studying.data.entity.RegisterResponse;
 import com.example.studying.data.entity.StudentLoginData;
 import com.example.studying.data.entity.TeacherProfile;
@@ -58,9 +56,9 @@ public interface RestAPI { //Все методы для доступа к сер
     @POST("messaging/news")
     Observable<RegisterResponse> publish (@Body Message message);
 
-    @POST("messaging/{channel}/subscribe")
-    Observable<Void> subscribe (@Path("channel") String channel);
-
-    @GET("data/news?sortBy=newsdate DESC")
+    @GET("data/news?pageSize=20&sortBy=newsdate DESC")
     Observable<List<NewsData>> getNews ();
+
+    @POST("data/news")
+    Observable<Void> addNews(@Body NewsData newsData);
 }

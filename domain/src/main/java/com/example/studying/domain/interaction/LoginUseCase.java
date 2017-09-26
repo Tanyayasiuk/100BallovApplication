@@ -2,7 +2,6 @@ package com.example.studying.domain.interaction;
 
 import android.util.Log;
 
-import com.example.studying.data.entity.AccessTokenData;
 import com.example.studying.data.entity.StudentLoginData;
 import com.example.studying.data.net.RestService;
 import com.example.studying.domain.entity.OkDomain;
@@ -27,27 +26,27 @@ public class LoginUseCase extends UseCase<RegisterDomain, OkDomain> {
     }
 
     @Override
-    protected Observable<OkDomain> buildUseCase(RegisterDomain registerDomain) {
+    protected Observable<OkDomain> buildUseCase(final RegisterDomain registerDomain) {
         Log.e("SSS", "useCase working ");
         Log.e("SSS", "email " + registerDomain.getEmail());
         Log.e("SSS", "password " + registerDomain.getPassword());
         return RestService.getInstance().login(convert(registerDomain))
-                .doOnNext(new Consumer<AccessTokenData>() {
+                .doOnNext(new Consumer<StudentLoginData>() {
                     @Override
-                    public void accept(AccessTokenData accessTokenData) throws Exception {
-                        Log.e("SSS", " authService.saveAccessToken");
-                        authService.saveAccessToken(accessTokenData.getAccessToken());
-
+                    public void accept(StudentLoginData loginData) throws Exception {
+                        authService.saveAccessToken(loginData.getToken());
+                        authService.saveUserData(loginData.getLogin(),
+                                loginData.getObjectId(),
+                                loginData.getEmail());
+                        Log.e("SSS", "Saving userData in SharedPrefs");
                     }
                 })
-                .map(new Function<AccessTokenData, OkDomain>() {
+                .map(new Function<StudentLoginData, OkDomain>() {
                     @Override
-                    public OkDomain apply(@NonNull AccessTokenData accessTokenData) throws Exception {
-                        Log.e("SSS", "OkDomain");
+                    public OkDomain apply(@NonNull StudentLoginData studentLoginData) throws Exception {
                         return new OkDomain();
                     }
                 });
-
     }
 
     private StudentLoginData convert(RegisterDomain registerDomain){

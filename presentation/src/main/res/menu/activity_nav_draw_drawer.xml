@@ -7,10 +7,6 @@
             android:icon="@drawable/ic_profile"
             android:title="@string/profile_item" />
         <item
-            android:id="@+id/nav_schedule"
-            android:icon="@drawable/ic_schedule"
-            android:title="@string/schedule_item" />
-        <item
             android:id="@+id/nav_books"
             android:icon="@drawable/ic_books"
             android:title="@string/books_item" />
