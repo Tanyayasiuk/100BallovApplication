@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.example.studying.a100ballovapplication.books.BooksFragment;
 import com.example.studying.a100ballovapplication.contacts.ContactsFragment;
 import com.example.studying.a100ballovapplication.my_profile.MyProfileFragment;
 import com.example.studying.a100ballovapplication.news.NewsFragment;
@@ -37,13 +38,11 @@ public class NavDrawActivity extends AppCompatActivity
 
     @Inject
     public AuthService authService;
-
     private boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("SSS", "Main - onCreate");
         MyApplication.appComponent.inject(this);
 
         setContentView(R.layout.activity_nav_draw);
@@ -60,71 +59,48 @@ public class NavDrawActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment;
-        String fragmentType = getIntent().getStringExtra(KEY_FRAGMENT);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        int fragmentType = getIntent().getIntExtra(KEY_FRAGMENT, 0);
 
-        if(fragmentType.equals(String.valueOf(R.string.news_item))){
+        if(fragmentType == R.string.news_item){
             fragment = NewsFragment.newInstance(getSupportFragmentManager());
-            //fragmentTransaction.addToBackStack(null);
-        } else if(fragmentType.equals(String.valueOf(R.string.profile_item))){
+        } else if(fragmentType == R.string.profile_item){
             fragment = MyProfileFragment.newInstance(getSupportFragmentManager());
         }else  {
             fragment = ContactsFragment.newInstance(getSupportFragmentManager());
         }
 
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container, fragment).commit();
+        if(savedInstanceState == null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment).commit();
+        }
+        setTitle(getResources().getString(fragmentType));
 
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-
-        if (exit) {
-            this.finish();
-        }else {
-           //Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
-           exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 1000);
-        }
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav_draw, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
             authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
                 @Override
                 public void onNext(@NonNull AuthState authState) {
                     //проверяем состояние авторизации
                     //если подписаны -
-                    Log.e("SSS", "onOptionsItemSelected - check auth State");
                     if(authState.isSigned()) {
                         Log.e("SSS", "isSigned");
-                        //TODO Здесь лучше мутить диалог с подтверждением и там удалять токен
+                        //TODO Здесь надо намутить диалог с подтверждением и там удалять токен
                         //TODO Вернее сделать LogOut usecase
                         /*authService.removeAccessToken();
                         startActivity(new Intent(NavDrawActivity.this, MainActivity.class));*/
@@ -154,16 +130,13 @@ public class NavDrawActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_profile) {
-            Log.e("SSS", "Profile");
             fragmentClass = MyProfileFragment.class;
         } else if (id == R.id.nav_books) {
-
+            fragmentClass = BooksFragment.class;
         } else if (id == R.id.nav_news) {
             fragmentClass = NewsFragment.class;
-            Log.e("SSS", "News");
         } else if (id == R.id.nav_contacts){
             fragmentClass = ContactsFragment.class;
-
         }
 
         try {
@@ -177,9 +150,45 @@ public class NavDrawActivity extends AppCompatActivity
         fragmentTransaction.commit();
 
         setTitle(item.getTitle());
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_FRAGMENT, getTitle().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        setTitle(savedInstanceState.getString(KEY_FRAGMENT));
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+        if (exit) {
+            this.finish();
+        }else {
+            //Toast.makeText(this, R.string.confirm_exit, Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 1000);
+        }
     }
 
     @Override
@@ -192,4 +201,6 @@ public class NavDrawActivity extends AppCompatActivity
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
+
+
 }

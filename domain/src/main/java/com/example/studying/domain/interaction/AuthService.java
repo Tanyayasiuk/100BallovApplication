@@ -20,10 +20,11 @@ public class AuthService {
     private static final String KEY_ACCESS_TOKEN = "accessToken";
     private static final String KEY_USER_LOGIN = "login";
     private static final String KEY_USER_EMAIL = "email";
+    public static final String CLASS_NUM = "classNumber";
     private static final String KEY_OBJECT_ID = "objectId";
     private static final String SHARED_PREFS_NAME = "sharedPrefs";
     private Context context;
-    //почтальон
+
     private BehaviorSubject<AuthState> state = BehaviorSubject
                                 .createDefault(new AuthState(false));
 
@@ -34,21 +35,22 @@ public class AuthService {
     }
 
     void saveAccessToken (String accessToken){
-        //сохраняем токен локально
+        //save token locally
         SharedPreferences preferences = context
                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         preferences.edit().putString(KEY_ACCESS_TOKEN, accessToken).apply();
-        //уведомляем подписчиков о том, что мы залогинены (всех, кто вызвал метод observeState())
+
         state.onNext(new AuthState(true));
     }
 
-    void saveUserData (String login, String objectId, String email){
+    void saveUserData (String login, String objectId, String email, int classNum){
         Log.e("SSS", "saveUserData");
         SharedPreferences prefs = context
                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putString(KEY_USER_LOGIN, login)
                           .putString(KEY_OBJECT_ID, objectId)
                           .putString(KEY_USER_EMAIL, email)
+                          .putInt(CLASS_NUM, classNum)
                           .apply();
     }
 
@@ -66,12 +68,11 @@ public class AuthService {
 
     private void restoreAccessToken(){
 
-        //получаем токен
         SharedPreferences preferences = context
                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         String token = preferences.getString(KEY_ACCESS_TOKEN, null);
 
-        //если токен не налл - значит, мы залогинены
+        //если токен не null - значит, мы залогинены
         if(!TextUtils.isEmpty(token)){
             state.onNext(new AuthState(true));
             Log.e("SSS", "new AuthState(true)");

@@ -24,7 +24,7 @@ public abstract class UseCase<InParam, OutParam> {
     }
 
     public void dispose(){
-        if (!disposable.isDisposed()){
+        if (!disposable.isDisposed() && disposable!=null){
             Log.e("CCC", "Disposing");
             disposable.dispose();
         }

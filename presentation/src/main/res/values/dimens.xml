@@ -13,5 +13,8 @@
     <dimen name="item_start_end_padding">14dp</dimen>
     <dimen name="item_extra_end_padding">20dp</dimen>
     <dimen name="elevation_profile">2dp</dimen>
+    <dimen name="elevation_small_profile">1dp</dimen>
+    <dimen name="profile_blocks_height">30dp</dimen>
+    <dimen name="standart_padding">8dp</dimen>
 
 </resources>

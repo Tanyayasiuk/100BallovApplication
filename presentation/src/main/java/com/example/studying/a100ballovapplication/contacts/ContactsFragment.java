@@ -18,8 +18,6 @@ import com.example.studying.a100ballovapplication.databinding.FragmentContactsBi
 
 public class ContactsFragment extends BaseFragment {
 
-    public static final String ARG = "ARG";
-    private String text;
     private ContactsFragmentViewModel cfViewModel;
 
     public ContactsFragment() {
@@ -35,8 +33,6 @@ public class ContactsFragment extends BaseFragment {
         } else {
             contactsFragment = new ContactsFragment();
         }
-        Bundle args = new Bundle();
-        contactsFragment.setArguments(args);
         return contactsFragment;
     }
 

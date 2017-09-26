@@ -29,7 +29,6 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.Holder>{
 
     @Override
     public NewsRVAdapter.Holder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.e("SSS", "NewsRVAdapter - onCreateViewHolder");
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_rv_news, parent, false);
         return new Holder(root);
@@ -37,7 +36,6 @@ public class NewsRVAdapter extends RecyclerView.Adapter<NewsRVAdapter.Holder>{
 
     @Override
     public void onBindViewHolder(NewsRVAdapter.Holder holder, int position) {
-        Log.e("SSS", "NewsRVAdapter - onBindViewHolder");
         holder.binding.setItem(items.get(position));
     }
 

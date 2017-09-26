@@ -14,6 +14,8 @@ import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseFragment;
 import com.example.studying.a100ballovapplication.databinding.FragmentNewsBinding;
 
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
+
 
 public class NewsFragment extends BaseFragment{
 
@@ -28,6 +30,10 @@ public class NewsFragment extends BaseFragment{
         } else {
             newsFragment = new NewsFragment();
         }
+
+        Bundle args = new Bundle();
+        args.putString(KEY_FRAGMENT, "Новости");
+        newsFragment.setArguments(args);
         return newsFragment;
     }
 

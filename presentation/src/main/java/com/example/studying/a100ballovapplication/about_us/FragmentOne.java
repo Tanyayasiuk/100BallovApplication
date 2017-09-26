@@ -33,7 +33,6 @@ public class FragmentOne extends BaseFragment {
         Bundle args = new Bundle();
         args.putString(ARG_NAME, teachersName);
         fragmentOne.setArguments(args);
-        Log.e("SSS", "FragmentOne new Instance");
         return fragmentOne;
     }
 
@@ -43,7 +42,6 @@ public class FragmentOne extends BaseFragment {
         fragmentViewModel = new FragmentViewModel(getActivity(), getArguments().getString(ARG_NAME));
         this.viewModel = fragmentViewModel;
         super.onCreate(savedInstanceState);
-        Log.e("SSS", "FragmentOne onCreate");
     }
 
     @Nullable
@@ -52,14 +50,12 @@ public class FragmentOne extends BaseFragment {
         FragmentOneBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_one, container, false);
         binding.setView(fragmentViewModel);
-        Log.e("SSS", "FragmentOne onCreateView");
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("SSS", "FragmentOne onView Created");
     }
 
     @BindingAdapter({"android:src"})
@@ -73,18 +69,15 @@ public class FragmentOne extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("SSS", "FragmentOne onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("SSS", "FragmentOne onPause");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("SSS", "FragmentOne onDestroy");
     }
 }

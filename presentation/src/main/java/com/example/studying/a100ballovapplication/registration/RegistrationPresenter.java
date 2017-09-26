@@ -44,8 +44,8 @@ public class RegistrationPresenter implements BasePresenter{
     @Inject
     public AuthService authService;
 
-   // @Inject
-    private RegisterDeviceUseCase registerDeviceUseCase = new RegisterDeviceUseCase();
+    @Inject
+    public RegisterDeviceUseCase registerDeviceUseCase;
 
     private BaseView view;
     private Activity activity;
@@ -69,18 +69,19 @@ public class RegistrationPresenter implements BasePresenter{
                 register.setEmail(email);
                 register.setPassword(password);
                 register.setLogin(login);
-
+                register.setClassNum(classNum);
                 view.showProgress();
-                Log.e("SSS", email + " " + login + " " + password);
+
                 registerUseCase.execute(register, new DisposableObserver<RegisterDomain>() {
                     @Override
                     public void onNext(@NonNull final RegisterDomain registerDomain) {
                         Log.e("SSS", "new user ID: " + registerDomain.getUserId());
 
+                        /*уже нет смысла тут его сохранять
                         SharedPreferences preferences = activity
                                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
                         preferences.edit().putInt(CLASS_NUM, classNum).apply();
-                        Log.e("SSS", "added to prefs: " + preferences.getInt(CLASS_NUM, 0));
+                        Log.e("SSS", "added to prefs: " + preferences.getInt(CLASS_NUM, 0));*/
 
                         RegisterRequestDomain requestDomain = new RegisterRequestDomain(activity);
                         registerDeviceUseCase.execute(requestDomain, new DisposableObserver<Boolean>() {
@@ -133,7 +134,5 @@ public class RegistrationPresenter implements BasePresenter{
 
     @Override
     public void onRelease() {
-        /*registerUseCase.dispose();
-        loginUseCase.dispose();*/
     }
 }

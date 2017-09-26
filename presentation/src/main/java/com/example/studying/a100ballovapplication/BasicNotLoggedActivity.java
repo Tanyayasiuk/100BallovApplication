@@ -73,7 +73,6 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         }
 
         if(savedInstanceState == null && !fragmentType.equals("Расписание")) {
-            Log.e("SSS", "  if(savedInstanceState == null && !fragmentType.equal ");
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container_basic, fragment).commit();
         }
@@ -135,6 +134,18 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_my);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_FRAGMENT, getTitle().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        setTitle(savedInstanceState.getString(KEY_FRAGMENT));
     }
 
     @Override

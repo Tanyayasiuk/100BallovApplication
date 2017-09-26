@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <import type="java.lang.String"/>
+        <variable
+            name="view"
+            type="com.example.studying.a100ballovapplication.books.BooksFragmentViewModel"/>
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Однажды здесь будут книги..."
+        android:gravity="center"/>
+</LinearLayout>
+</layout>

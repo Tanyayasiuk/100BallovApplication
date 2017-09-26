@@ -27,7 +27,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs{
+    signingConfigs {
         debug {
             storeFile file('./debug.jks')
             storePassword '12345678'
@@ -35,6 +35,7 @@ android {
             keyPassword '12345678'
         }
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -43,20 +44,10 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
-    }
-
-    productFlavors {
-
-        production {
-            versionCode 1
-            versionName "1.0"
-        }
-
-        developer {
-            versionCode 1
-            versionName "0.1"
+        buildType {
         }
     }
+
 
 
     dataBinding {
@@ -66,7 +57,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -91,14 +82,10 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
         transitive = true;
     }
-
-    compile "com.google.dagger:dagger:2.8"
+    compile 'com.google.dagger:dagger:2.8'
     annotationProcessor "com.google.dagger:dagger-compiler:2.8"
-
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-
-    compile group: 'com.backendless', name: 'backendless', version: '4.0.3'
-
+    compile 'com.backendless:backendless:4.0.3'
 }
 
 crashlytics {

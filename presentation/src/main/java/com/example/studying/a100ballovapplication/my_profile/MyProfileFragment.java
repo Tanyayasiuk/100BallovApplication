@@ -1,11 +1,15 @@
 package com.example.studying.a100ballovapplication.my_profile;
 
+import android.app.Activity;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,30 +19,38 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseFragment;
+import com.example.studying.a100ballovapplication.books.BooksFragment;
 import com.example.studying.a100ballovapplication.databinding.FragmentProfileBinding;
+
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 
 
 public class MyProfileFragment extends BaseFragment {
 
-    public static final String ARG_NAME = "ARG_NAME";
     private MyProfileFragmentViewModel fragmentModel;
 
     public MyProfileFragment() {
     }
 
     public static MyProfileFragment newInstance(FragmentManager manager) {
-        MyProfileFragment myProfileFragment = new MyProfileFragment();
-        Log.e("SSS", "MyProf fragment new Instance");
+        Fragment fragment = manager.findFragmentByTag(MyProfileFragment.class.getName());
+        MyProfileFragment myProfileFragment;
+
+        if(fragment != null && fragment instanceof MyProfileFragment){
+            myProfileFragment = (MyProfileFragment) fragment;
+        } else {
+            myProfileFragment = new MyProfileFragment();
+        }
+
         return myProfileFragment;
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        fragmentModel = new MyProfileFragmentViewModel(getActivity());
+        fragmentModel = new MyProfileFragmentViewModel((AppCompatActivity) getActivity());
         this.viewModel = fragmentModel;
         super.onCreate(savedInstanceState);
-        Log.e("SSS", "myProfileFragment onCreate");
     }
 
     @Nullable
@@ -83,8 +95,5 @@ public class MyProfileFragment extends BaseFragment {
         super.onDestroy();
         Log.e("SSS", "myProfileFragment onDestroy");
     }
-
-
-
 
 }

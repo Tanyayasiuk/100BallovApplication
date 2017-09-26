@@ -1,6 +1,8 @@
 package com.example.studying.a100ballovapplication.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,13 +19,14 @@ import com.example.studying.a100ballovapplication.NavDrawActivity;
 import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseView;
 
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_ACCESS_TOKEN;
 import static com.example.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_USER_EMAIL;
+import static com.example.studying.a100ballovapplication.base.Defaults.SHARED_PREFS_NAME;
 import static com.example.studying.a100ballovapplication.registration.RegistrationActivity.KEY_EMAIL;
 import static com.example.studying.a100ballovapplication.registration.RegistrationActivity.KEY_PASS;
 
 public class LoginActivity extends AppCompatActivity implements BaseView {
-    //используется НЕ databinding
-    //можно butterknife
 
     private LoginPresenter presenter;
 
@@ -58,12 +61,13 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
         enterEmail = (EditText) findViewById(R.id.enter_login);
         enterPassword = (EditText) findViewById(R.id.enter_password);
 
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+
         enterEmail.setText(getIntent().getStringExtra(KEY_EMAIL));
 
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String email = enterEmail.getText().toString().trim();
                 String password = enterPassword.getText().toString().trim();
                 presenter.onLoginButtonClick(email, password);
@@ -103,6 +107,7 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
     public void goToMainActivity() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -111,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements BaseView {
     @Override
     public void logIn(String login) {
         Intent intent = new Intent(LoginActivity.this, NavDrawActivity.class);
-        intent.putExtra(KEY_FRAGMENT, String.valueOf(R.string.profile_item));
+        intent.putExtra(KEY_FRAGMENT, R.string.profile_item);
         startActivity(intent);
     }
 

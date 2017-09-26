@@ -61,20 +61,15 @@ public class EnrollFragment extends BaseFragment {
         binding.spinnerEnroll.setAdapter(adapter);
         binding.spinnerEnroll.setAlpha(0.7f);
 
-
         // обработчик нажатия
         binding.spinnerEnroll.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-            }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
+
         return binding.getRoot();
     }
 

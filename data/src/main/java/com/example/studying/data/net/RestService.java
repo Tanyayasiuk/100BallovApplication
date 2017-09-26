@@ -61,12 +61,12 @@ public class RestService {
 
    public Observable<TeacherProfile> getProfile (String name){
        Log.e("SSS", "Observable<TeacherProfile> getProfile");
-       String title = name + ".json";
+       String title = name.concat(".json");
        return restAPI.getProfiles(title);
    }
 
     public Observable<ContactProfile> getContact (String file){
-        String filename = file + ".json";
+        String filename = file.concat(".json");
         return restAPI.getContact(filename);
     }
 

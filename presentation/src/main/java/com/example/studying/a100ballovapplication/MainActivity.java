@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.example.studying.a100ballovapplication.login.LoginActivity;
-import com.example.studying.a100ballovapplication.news.NewsActivity;
 import com.example.studying.a100ballovapplication.registration.RegistrationActivity;
 import com.example.studying.domain.entity.AuthState;
 import com.example.studying.domain.interaction.AuthService;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 newIntent.putExtra(KEY_FRAGMENT, scheduleButton.getText());
                 startActivity(newIntent);
-                Log.e("SSS", "Schedule - onClick - " + scheduleButton.getText());
             }
         });
 
@@ -73,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 newIntent.putExtra(KEY_FRAGMENT,enrollButton.getText());
                 startActivity(newIntent);
-                Log.e("SSS", "Enroll - onClick");
             }
         });
 
@@ -83,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 newIntent.putExtra(KEY_FRAGMENT, contactsButton.getText());
                 startActivity(newIntent);
-                Log.e("SSS", "Contacts - onClick");
             }
         });
 
@@ -94,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra(KEY_FRAGMENT, enterButton.getText());
                 startActivity(intent);
-
-                Log.e("SSS", "Enter - onClick");
             }
         });
 
@@ -106,14 +100,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
                 intent.putExtra(KEY_FRAGMENT, registerButton.getText());
                 startActivity(intent);
-                Log.e("SSS", "Register - onClick");
             }
         });
 
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         if(!preferences.getString(KEY_ACCESS_TOKEN, "").equals("")){
             Intent intent = new Intent(MainActivity.this, NavDrawActivity.class);
-            intent.putExtra(KEY_FRAGMENT, String.valueOf(R.string.news_item));
+            intent.putExtra(KEY_FRAGMENT, R.string.news_item);
             startActivity(intent);
             finish();
         }
@@ -159,11 +152,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    protected void onRestart() {
-        Log.e("SSS", "Main Activity - onRestart ");
-        super.onRestart();
-    }
 
     public void forceCrash(View view) {
         throw new RuntimeException("This is a crash");

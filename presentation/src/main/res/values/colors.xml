@@ -13,6 +13,7 @@
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="divider_light">#edecec</color>
+    <color name="header">#e0f7fa</color>
     <color name="Transparent80">#5a018a99</color>
     <color name="Transparent100">#6e018a99</color>
     <color name="Transparent150">#96018a99</color>

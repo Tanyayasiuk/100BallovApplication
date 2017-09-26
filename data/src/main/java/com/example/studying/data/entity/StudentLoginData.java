@@ -19,6 +19,9 @@ public class StudentLoginData implements DataModel {
     @SerializedName("user-token")
     private String token;
 
+    @SerializedName("class")
+    private int classNum;
+
     public String getEmail() {
         return email;
     }
@@ -57,5 +60,13 @@ public class StudentLoginData implements DataModel {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getClassNum() {
+        return classNum;
+    }
+
+    public void setClassNum(int classNum) {
+        this.classNum = classNum;
     }
 }

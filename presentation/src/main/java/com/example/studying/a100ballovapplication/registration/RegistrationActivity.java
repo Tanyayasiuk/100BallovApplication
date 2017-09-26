@@ -103,8 +103,6 @@ public class RegistrationActivity extends AppCompatActivity
                 } catch (NumberFormatException e){
                     classNum = 0;
                 }
-
-                Log.e("SSS", "class num = " + classNum);
                 presenter.onRegistrationButtonClick(email, login, password, classNum);
 
             }
@@ -142,6 +140,7 @@ public class RegistrationActivity extends AppCompatActivity
     public void showError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void goToMainActivity() {

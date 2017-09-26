@@ -14,13 +14,9 @@ import io.reactivex.functions.Function;
 
 public class RegisterUseCase extends UseCase<RegisterDomain, RegisterDomain> {
 
-    //?? нужен ли здесь вообще этот сервис??
-    //AuthService authService;
 
     @Inject
-    public RegisterUseCase(/*AuthService authService*/) {
-        /*this.authService = authService;*/
-    }
+    public RegisterUseCase() {}
 
     @Override
     protected Observable<RegisterDomain> buildUseCase(RegisterDomain registerDomain) {
@@ -33,6 +29,7 @@ public class RegisterUseCase extends UseCase<RegisterDomain, RegisterDomain> {
                         newUser.setPassword(loginData.getPassword());
                         newUser.setUserId(loginData.getObjectId());
                         newUser.setLogin(loginData.getLogin());
+                        newUser.setClassNum(loginData.getClassNum());
                         return newUser;
                     }
                 });
@@ -44,6 +41,7 @@ public class RegisterUseCase extends UseCase<RegisterDomain, RegisterDomain> {
         studentLoginData.setEmail(registerDomain.getEmail());
         studentLoginData.setPassword(registerDomain.getPassword());
         studentLoginData.setLogin(registerDomain.getLogin());
+        studentLoginData.setClassNum(registerDomain.getClassNum());
         return studentLoginData;
     }
 }

@@ -37,7 +37,8 @@
             android:name=".NavDrawActivity"
             android:label="@string/title_activity_nav_draw"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.studying.a100ballovapplication.MainActivity" />
@@ -49,13 +50,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".login.LoginActivity"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".registration.RegistrationActivity"
             android:noHistory="true"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".news.NewsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
         <meta-data

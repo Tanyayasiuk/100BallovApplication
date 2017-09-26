@@ -3,12 +3,9 @@ package com.example.studying.a100ballovapplication.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 
-import com.example.studying.a100ballovapplication.R;
 
 public abstract class BaseFragment extends Fragment{
 
@@ -48,4 +45,6 @@ public abstract class BaseFragment extends Fragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+
 }

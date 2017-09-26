@@ -33,6 +33,7 @@
             android:layout_width="304dp"
             android:layout_height="45dp"
             android:hint="@string/email_login"
+            android:inputType="textEmailAddress"
             android:textColor="@color/secondary_text"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="136dp"

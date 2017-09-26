@@ -6,6 +6,7 @@ public class RegisterDomain implements DomainModel {
     private String password;
     private String userId;
     private String login;
+    private int classNum;
 
     public String getEmail() {
         return email;
@@ -37,5 +38,13 @@ public class RegisterDomain implements DomainModel {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public int getClassNum() {
+        return classNum;
+    }
+
+    public void setClassNum(int classNum) {
+        this.classNum = classNum;
     }
 }

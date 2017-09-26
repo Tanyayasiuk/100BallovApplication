@@ -1,12 +1,17 @@
 package com.example.studying.a100ballovapplication.my_profile;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.databinding.ObservableField;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
+import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseViewModel;
+import com.example.studying.a100ballovapplication.books.BooksFragment;
 import com.example.studying.domain.entity.Schedule;
 import com.example.studying.domain.interaction.GetScheduleUseCase;
 
@@ -18,18 +23,19 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
 import static com.example.studying.a100ballovapplication.base.Defaults.CLASS_NUM;
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_USER_EMAIL;
 import static com.example.studying.a100ballovapplication.base.Defaults.KEY_USER_LOGIN;
 import static com.example.studying.a100ballovapplication.base.Defaults.SHARED_PREFS_NAME;
 
 
 public class MyProfileFragmentViewModel implements BaseViewModel {
 
-    private Activity activity;
+    private AppCompatActivity activity;
     public enum STATE {PROGRESS, DATA};
     int classNum;
     public ObservableField<STATE> state = new ObservableField<>(STATE.PROGRESS);
 
-    public MyProfileFragmentViewModel(Activity activity){
+    public MyProfileFragmentViewModel(AppCompatActivity activity){
         this.activity = activity;
     }
 
@@ -58,24 +64,38 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
     @Override
     public void resume() {
         // Getting the student's profile to show depending on their name
-        email.set(preferences.getString(KEY_USER_LOGIN, null));
+        email.set(preferences.getString(KEY_USER_EMAIL, null));
+        nickname.set(preferences.getString(KEY_USER_LOGIN, null));
         classNumberString.set(String.valueOf(classNum).concat(" класс"));
-        books.set("Ma books for " + classNum);
+        books.set("Учебник. Белорусский язык " + classNum + " класс.");
 
         getUsersSchedule(classNum);
 
-        //schedule.set("Вторник\n\n12.20-13.50 JNVMvutmnxivtrn\n\n12.20-13.50 JNVMvutmnxivtrn");
+        //TODO Сделать useCase на получение ДЗ
         hometask.set("Параграф №4\nУпражнения 1 - 3.\nВопросы после параграфа.");
         state.set(STATE.DATA);
+
+        TextView myBooks = (TextView) activity.findViewById(R.id.student_books);
+        myBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                BooksFragment fragment = BooksFragment.newInstance(activity.getSupportFragmentManager());
+                FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     private void getUsersSchedule (int classNum){
 
+        //TODO Убрать вот это, и заменить на что-то приличное:
+        final String[] weekDays = {"", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"};
 
         useCase.execute(classNum, new DisposableObserver<List<Schedule>>() {
             @Override
@@ -87,9 +107,12 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
                     }
                 }
                 Collections.sort(days);
-                //TODO Доделать превращение листа Schedule в один большой стринг (?) Чтобы печатал дни
+                //TODO Доделать. Вообще, конечно, лучше сделать recyclerview... но это столько доп. текста....
                 StringBuilder element = new StringBuilder();
                 for (int i = 0; i < days.size(); i++) {
+                    element.append("\n");
+                    element.append(weekDays[days.get(i)]);
+                    element.append("\n\n");
                     for(int j = 0; j < schedules.size(); j++){
                         if(days.get(i) == schedules.get(j).getDay()){
                             element.append(schedules.get(j).getTime());
@@ -105,12 +128,12 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("SSS", "It's definitely time to sleep!");
+                Log.e("SSS", e.getLocalizedMessage());
             }
 
             @Override
             public void onComplete() {
-
+                useCase.dispose();
             }
         });
 

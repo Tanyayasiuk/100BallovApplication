@@ -37,7 +37,7 @@ public class LoginUseCase extends UseCase<RegisterDomain, OkDomain> {
                         authService.saveAccessToken(loginData.getToken());
                         authService.saveUserData(loginData.getLogin(),
                                 loginData.getObjectId(),
-                                loginData.getEmail());
+                                loginData.getEmail(), loginData.getClassNum());
                         Log.e("SSS", "Saving userData in SharedPrefs");
                     }
                 })
@@ -53,6 +53,7 @@ public class LoginUseCase extends UseCase<RegisterDomain, OkDomain> {
         StudentLoginData studentLoginData = new StudentLoginData();
         studentLoginData.setLogin(registerDomain.getEmail());
         studentLoginData.setPassword(registerDomain.getPassword());
+        studentLoginData.setClassNum(registerDomain.getClassNum());
         return studentLoginData;
     }
 

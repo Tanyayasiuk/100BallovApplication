@@ -1,6 +1,8 @@
 package com.example.studying.a100ballovapplication.news;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.ObservableField;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,12 +38,15 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
+import static com.example.studying.a100ballovapplication.base.Defaults.ADMIN;
+import static com.example.studying.a100ballovapplication.base.Defaults.KEY_USER_EMAIL;
+import static com.example.studying.a100ballovapplication.base.Defaults.SHARED_PREFS_NAME;
+
 
 public class NewsFragmentViewModel implements BaseViewModel {
 
     private Activity activity;
     public enum STATE {PROGRESS, DATA}
-    //TODO Добавить механизм установки isAdmin(true/false)
     public boolean isAdmin = false;
     private List<NewsItemViewModel> itemsList;
     public ObservableField<STATE> state = new ObservableField<>(STATE.PROGRESS);
@@ -67,6 +72,11 @@ public class NewsFragmentViewModel implements BaseViewModel {
 
     @Override
     public void resume() {
+        SharedPreferences preferences = activity.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        if(preferences.getString(KEY_USER_EMAIL, null)!= null){
+            if(preferences.getString(KEY_USER_EMAIL, null).equals(ADMIN))  isAdmin = true;
+        }
+
         final RecyclerView recyclerView = (RecyclerView)activity.findViewById(R.id.news_recycler_view);
         final LinearLayoutManager manager = new LinearLayoutManager(activity);
         recyclerView.setLayoutManager(manager);
@@ -124,7 +134,7 @@ public class NewsFragmentViewModel implements BaseViewModel {
     public void pause() {Log.e("SSS", "NewsFragViewMOdel -  Pause");}
 
     @Override
-    public void release() {useCase.dispose();}
+    public void release() { }
 
 
     private void refreshRecyclerView(final RecyclerView recyclerView){
@@ -149,7 +159,7 @@ public class NewsFragmentViewModel implements BaseViewModel {
             public void onError(@NonNull Throwable e) {Log.e("SSS", e.getLocalizedMessage());}
 
             @Override
-            public void onComplete() {
+            public void onComplete() {useCase.dispose();
             }
         });
 

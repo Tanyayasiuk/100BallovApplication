@@ -1,5 +1,7 @@
 package com.example.studying.a100ballovapplication.login;
 
+import android.content.Context;
+
 import com.example.studying.a100ballovapplication.MyApplication;
 import com.example.studying.a100ballovapplication.R;
 import com.example.studying.a100ballovapplication.base.BaseView;
@@ -48,15 +50,12 @@ public class LoginPresenter implements LoginBasePresenter{
                 public void onNext(@NonNull OkDomain okDomain) {
                     view.dismissProgress();
                     view.logIn(register.getEmail());
-
-
-
                 }
 
                 @Override
                 public void onError(@NonNull Throwable e) {
-                    view.showError("Ошибка авторизации" + e.getLocalizedMessage());
-                    view.goToMainActivity();
+                    view.showToast(R.string.login_error);
+                    view.dismissProgress();
                 }
 
                 @Override
