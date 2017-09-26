@@ -106,7 +106,7 @@ public class NewsFragmentViewModel implements BaseViewModel {
 
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            Log.e("SSS", "F*ck! " + e.getLocalizedMessage());
+                            Log.e("SSS", e.getLocalizedMessage());
                         }
 
                         @Override
