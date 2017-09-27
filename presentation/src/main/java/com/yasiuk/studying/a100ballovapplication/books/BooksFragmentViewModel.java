@@ -25,7 +25,9 @@ public class BooksFragmentViewModel implements BaseViewModel {
 
     @Override
     public void resume() {
-
+        // Скачивать и показывать pdf
+        //startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://che.org.il/wp-content/uploads/2016/12/pdf-sample.pdf")));
+        //permission to access external storage (?)
     }
 
     @Override

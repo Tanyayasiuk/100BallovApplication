@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume(){
-        Log.e("SSS", "Main Activity - onResume ");
         authDisposable = authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
             @Override
             public void onNext(@NonNull AuthState authState) {
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.e("SSS", "MAin Activity - onResume - Auth. Error " + e.getLocalizedMessage());
+                Log.e("SSS", "Main Activity auth. error " + e.getLocalizedMessage());
             }
 
             @Override
@@ -139,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onPause(){
-        Log.e("SSS", "Main Activity - onPause ");
         super.onPause();
         if(authDisposable!=null && !authDisposable.isDisposed()){
             authDisposable.dispose();
@@ -148,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.e("SSS", "Main Activity - onDestroy ");
         super.onDestroy();
     }
 
