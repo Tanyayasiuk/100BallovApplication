@@ -15,6 +15,10 @@ import com.yasiuk.studying.a100ballovapplication.databinding.FragmentBooksBindin
 
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 
+/* The possibility to view and download parts of textbooks in pdf
+* from the server according to user's class
+* is going to be implemented here*/
+
 public class BooksFragment extends BaseFragment {
 
     private BooksFragmentViewModel booksViewModel;
