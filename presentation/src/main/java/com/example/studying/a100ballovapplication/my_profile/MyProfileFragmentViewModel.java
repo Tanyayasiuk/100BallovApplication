@@ -112,7 +112,7 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
                 for (int i = 0; i < days.size(); i++) {
                     element.append("\n");
                     element.append(weekDays[days.get(i)]);
-                    element.append("\n\n");
+                    element.append("\n");
                     for(int j = 0; j < schedules.size(); j++){
                         if(days.get(i) == schedules.get(j).getDay()){
                             element.append(schedules.get(j).getTime());

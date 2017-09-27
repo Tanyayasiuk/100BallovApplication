@@ -32,7 +32,7 @@
             android:visibility="@{view.state == STATE.DATA ? View.VISIBLE : View.GONE}">
 
             <ImageView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@{view.imageUrl}"
                 android:layout_marginLeft="30dp"
@@ -42,7 +42,7 @@
                 android:layout_marginTop="30dp"
                 android:id="@+id/imageView2"
                 android:contentDescription="@string/image_description"
-                android:background="@drawable/user_info_600px"
+                android:background="@drawable/boy"
                 tools:ignore="RtlHardcoded" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:textColor="@color/secondary_text"
                 android:textSize="16sp"
                 android:hint="@string/email_login"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toRightOf="@id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
@@ -158,6 +158,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textAlignment="textStart"
+                android:textStyle="normal"
                 android:text="@={view.books}"
                 android:hint="@string/my_books"
                 android:textAllCaps="false"
