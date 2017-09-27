@@ -18,7 +18,6 @@ import com.yasiuk.studying.a100ballovapplication.R;
 import com.yasiuk.studying.a100ballovapplication.base.BaseFragment;
 import com.yasiuk.studying.a100ballovapplication.databinding.FragmentProfileBinding;
 
-
 public class MyProfileFragment extends BaseFragment {
 
     private MyProfileFragmentViewModel fragmentModel;

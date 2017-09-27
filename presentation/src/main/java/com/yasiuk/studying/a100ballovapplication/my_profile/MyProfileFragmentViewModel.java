@@ -6,9 +6,12 @@ import android.databinding.ObservableField;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.yasiuk.studying.a100ballovapplication.NavDrawActivity;
 import com.yasiuk.studying.a100ballovapplication.R;
 import com.yasiuk.studying.a100ballovapplication.base.BaseViewModel;
 import com.yasiuk.studying.a100ballovapplication.books.BooksFragment;
@@ -75,6 +78,7 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
 
         //TODO Сделать useCase на получение ДЗ
         hometask.set("Параграф №4\nУпражнения 1 - 3.\nВопросы после параграфа.");
+
         state.set(STATE.DATA);
 
         TextView myBooks = (TextView) activity.findViewById(R.id.student_books);
@@ -87,6 +91,16 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
                 fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+            }
+        });
+
+        TextView tasks = (TextView) activity.findViewById(R.id.student_tasks);
+        tasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(activity, "GetTaskUseCase will be here soon...", Toast.LENGTH_LONG)
+                .show();
+
             }
         });
     }

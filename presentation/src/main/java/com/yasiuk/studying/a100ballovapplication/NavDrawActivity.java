@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yasiuk.studying.a100ballovapplication.books.BooksFragment;
 import com.yasiuk.studying.a100ballovapplication.contacts.ContactsFragment;
@@ -118,6 +119,8 @@ public class NavDrawActivity extends AppCompatActivity
                         //TODO Вернее сделать LogOut usecase
                         /*authService.removeAccessToken();
                         startActivity(new Intent(NavDrawActivity.this, MainActivity.class));*/
+                        Toast.makeText(NavDrawActivity.this, "Скоро можно будет выйти. Пока нет)...", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 }
 
