@@ -27,6 +27,8 @@ import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_USER_E
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_USER_LOGIN;
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.SHARED_PREFS_NAME;
 
+/*The hometask field is gonna be set from  the server
+* according to user's class number*/
 
 public class MyProfileFragmentViewModel implements BaseViewModel {
 
