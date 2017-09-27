@@ -5,7 +5,7 @@
         <import type="java.lang.String"/>
         <variable
             name="item"
-            type="com.example.studying.a100ballovapplication.news.NewsItemViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.news.NewsItemViewModel"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

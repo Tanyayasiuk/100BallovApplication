@@ -2,10 +2,10 @@
 <layout>
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.studying.a100ballovapplication.schedule.ScheduleFragmentViewModel.STATE"/>
+        <import type="com.yasiuk.studying.a100ballovapplication.schedule.ScheduleFragmentViewModel.STATE"/>
         <variable
             name="view"
-            type="com.example.studying.a100ballovapplication.schedule.ScheduleFragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.schedule.ScheduleFragmentViewModel"/>
     </data>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"

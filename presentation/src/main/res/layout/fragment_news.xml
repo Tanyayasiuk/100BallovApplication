@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.studying.a100ballovapplication.news.NewsFragmentViewModel.STATE"/>
+        <import type="com.yasiuk.studying.a100ballovapplication.news.NewsFragmentViewModel.STATE"/>
         <variable
             name="view"
-            type="com.example.studying.a100ballovapplication.news.NewsFragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.news.NewsFragmentViewModel"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"

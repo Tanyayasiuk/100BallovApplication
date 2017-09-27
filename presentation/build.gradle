@@ -19,7 +19,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.example.studying.a100ballovapplication"
+        applicationId "com.yasiuk.studying.a100ballovapplication"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1

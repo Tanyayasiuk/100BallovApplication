@@ -4,10 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View"/>
-        <import type="com.example.studying.a100ballovapplication.my_profile.MyProfileFragmentViewModel.STATE"/>
+        <import type="com.yasiuk.studying.a100ballovapplication.my_profile.MyProfileFragmentViewModel.STATE"/>
         <variable
             name="view"
-            type="com.example.studying.a100ballovapplication.my_profile.MyProfileFragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.my_profile.MyProfileFragmentViewModel"/>
     </data>
 <ScrollView
     android:layout_width="match_parent"

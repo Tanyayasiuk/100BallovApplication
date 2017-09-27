@@ -5,7 +5,7 @@
         <import type="java.lang.String"/>
         <variable
             name="view"
-            type="com.example.studying.a100ballovapplication.books.BooksFragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.books.BooksFragmentViewModel"/>
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"

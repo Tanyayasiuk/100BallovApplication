@@ -4,7 +4,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.example.studying.a100ballovapplication.about_us.FragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.about_us.FragmentViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

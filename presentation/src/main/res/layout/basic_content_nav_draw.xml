@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/container_basic"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.studying.a100ballovapplication.BasicNotLoggedActivity"
+    tools:context="com.yasiuk.studying.a100ballovapplication.BasicNotLoggedActivity"
     tools:showIn="@layout/activity_basic_container">
 
 </android.support.constraint.ConstraintLayout>

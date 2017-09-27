@@ -5,10 +5,10 @@
     <data>
         <import type="android.view.View"/>
         <import type="java.lang.String"/>
-        <import type="com.example.studying.a100ballovapplication.enroll.EnrollFragmentViewModel.STATE"/>
+        <import type="com.yasiuk.studying.a100ballovapplication.enroll.EnrollFragmentViewModel.STATE"/>
         <variable
             name="view"
-            type="com.example.studying.a100ballovapplication.enroll.EnrollFragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.enroll.EnrollFragmentViewModel"/>
     </data>
 
     <ScrollView

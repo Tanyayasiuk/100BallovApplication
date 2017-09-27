@@ -3,10 +3,10 @@
     <data>
         <import type="android.view.View"/>
         <import type="java.lang.String"/>
-        <import type="com.example.studying.a100ballovapplication.contacts.ContactsFragmentViewModel.STATE"/>
+        <import type="com.yasiuk.studying.a100ballovapplication.contacts.ContactsFragmentViewModel.STATE"/>
         <variable
             name="view"
-            type="com.example.studying.a100ballovapplication.contacts.ContactsFragmentViewModel"/>
+            type="com.yasiuk.studying.a100ballovapplication.contacts.ContactsFragmentViewModel"/>
     </data>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
