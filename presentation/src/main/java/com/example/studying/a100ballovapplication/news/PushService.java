@@ -32,7 +32,7 @@ public class PushService extends BackendlessPushService {
             if( appIcon == 0 ) appIcon = android.R.drawable.sym_def_app_icon;
 
             Intent notificationIntent = new Intent( context, NavDrawActivity.class );
-            notificationIntent.putExtra( KEY_FRAGMENT, String.valueOf(R.string.news_item));
+            notificationIntent.putExtra( KEY_FRAGMENT,R.string.news_item);
             PendingIntent contentIntent = PendingIntent.getActivity( context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT );
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder( context );
