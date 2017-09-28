@@ -44,6 +44,9 @@ public interface RestAPI { //Все методы для доступа к сер
     @POST("users/login")
     Observable<StudentLoginData> login(@Body StudentLoginData data);
 
+    @GET("users/logout")
+    Observable<Void> logout();
+
     @PUT("data/user/{id}")
     Observable<Void> editUser (@Path("id") String id, @Body StudentLoginData data);
 

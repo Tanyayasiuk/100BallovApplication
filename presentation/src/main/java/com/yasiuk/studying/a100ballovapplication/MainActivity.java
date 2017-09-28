@@ -3,6 +3,7 @@ package com.yasiuk.studying.a100ballovapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     public AuthService authService;
     private Disposable authDisposable;
+    public static final String LOAD_TYPE = "loadType";
+
+    private boolean exit = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        if(!preferences.getString(KEY_ACCESS_TOKEN, "").equals("")){
+        if(!preferences.getString(KEY_ACCESS_TOKEN, "").equals("") && !getIntent().hasExtra(LOAD_TYPE)){
             Intent intent = new Intent(MainActivity.this, NavDrawActivity.class);
             intent.putExtra(KEY_FRAGMENT, R.string.news_item);
             startActivity(intent);
@@ -141,6 +146,21 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         if(authDisposable!=null && !authDisposable.isDisposed()){
             authDisposable.dispose();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            this.finish();
+        }else {
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 1000);
         }
     }
 

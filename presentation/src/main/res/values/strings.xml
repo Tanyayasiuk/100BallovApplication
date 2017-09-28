@@ -17,6 +17,7 @@
     <string name="schedule_item">Расписание</string>
     <string name="books_item">Учебники</string>
     <string name="news_item">Новости</string>
+    <string name="to_main">На главную</string>
 
     <!--Main page strings-->
     <string name="about_us">О нас</string>

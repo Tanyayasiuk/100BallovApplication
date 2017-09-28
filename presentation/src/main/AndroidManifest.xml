@@ -31,6 +31,7 @@
         <activity
             android:name="com.yasiuk.studying.a100ballovapplication.NavDrawActivity"
             android:label="@string/title_activity_nav_draw"
+            android:noHistory="true"
             android:parentActivityName="com.yasiuk.studying.a100ballovapplication.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             >

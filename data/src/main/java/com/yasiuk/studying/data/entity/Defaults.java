@@ -1,6 +1,9 @@
 
 package com.yasiuk.studying.data.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Defaults {
 
     public static final String APPLICATION_ID = "33732170-B3D2-FFA4-FFD4-AF51778ED800";
@@ -11,7 +14,7 @@ public class Defaults {
     public static final String SENDER_ID = "585188701610";
 
     public static final String DEFAULT_CHANNEL = "default";
-    public static final String NEWS_CHANNEL = "news";
+    public static final List<String> NEWS_CHANNEL = new ArrayList<>();
 
     public static final String APP_NAME = "100ballov";
 }

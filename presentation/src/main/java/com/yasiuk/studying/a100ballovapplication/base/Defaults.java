@@ -13,6 +13,7 @@ public class Defaults {
 
     //TODO Придумать что-то, чтобы не хранить почту вот так.
     public static final String ADMIN = "t.yasiuk@gmail.com";
+    public static final String ADMIN_IV = "iv.yasiuk@gmail.com";
 
 }
                                             

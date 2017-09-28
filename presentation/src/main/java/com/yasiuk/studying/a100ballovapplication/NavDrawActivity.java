@@ -1,6 +1,7 @@
 package com.yasiuk.studying.a100ballovapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,14 +26,17 @@ import com.yasiuk.studying.a100ballovapplication.books.BooksFragment;
 import com.yasiuk.studying.a100ballovapplication.contacts.ContactsFragment;
 import com.yasiuk.studying.a100ballovapplication.my_profile.MyProfileFragment;
 import com.yasiuk.studying.a100ballovapplication.news.NewsFragment;
-import com.yasiuk.studying.domain.entity.AuthState;
+import com.yasiuk.studying.domain.entity.OkDomain;
 import com.yasiuk.studying.domain.interaction.AuthService;
+import com.yasiuk.studying.domain.interaction.LogoutUseCase;
+
 
 import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
+import static com.yasiuk.studying.a100ballovapplication.MainActivity.LOAD_TYPE;
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_USER_EMAIL;
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_USER_LOGIN;
@@ -43,6 +47,10 @@ public class NavDrawActivity extends AppCompatActivity
 
     @Inject
     public AuthService authService;
+
+    @Inject
+    public LogoutUseCase logoutUseCase;
+
     private boolean exit = false;
 
     @Override
@@ -108,27 +116,24 @@ public class NavDrawActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
-            authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
+            logoutUseCase.execute(null, new DisposableObserver<OkDomain>() {
                 @Override
-                public void onNext(@NonNull AuthState authState) {
-                    //проверяем состояние авторизации
-                    //если подписаны -
-                    if(authState.isSigned()) {
-                        Log.e("SSS", "isSigned");
-                        //TODO Здесь надо намутить диалог с подтверждением и там удалять токен
-                        //TODO Вернее сделать LogOut usecase
-                        /*authService.removeAccessToken();
-                        startActivity(new Intent(NavDrawActivity.this, MainActivity.class));*/
-                        Toast.makeText(NavDrawActivity.this, "Скоро можно будет выйти. Пока нет)...", Toast.LENGTH_SHORT)
-                                .show();
-                    }
+                public void onNext(@NonNull OkDomain okDomain) {
+                    Intent intent = new Intent(NavDrawActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    NavDrawActivity.this.finish();
                 }
 
                 @Override
-                public void onError(@NonNull Throwable e) {Log.e("SSS", e.getLocalizedMessage());}
+                public void onError(@NonNull Throwable e) {
+                    Log.e("SSS", "Error while LOGOUT");
+                }
 
                 @Override
-                public void onComplete() {}
+                public void onComplete() {
+                    logoutUseCase.dispose();
+                }
             });
             return true;
         }
@@ -142,32 +147,37 @@ public class NavDrawActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        Fragment fragment = null;
-        Class fragmentClass = ContactsFragment.class;
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (id == R.id.nav_main){
+            Intent intent = new Intent(NavDrawActivity.this, MainActivity.class);
+            intent.putExtra(LOAD_TYPE, "startPage");
+            startActivity(intent);
+        } else {
+            Fragment fragment = null;
+            Class fragmentClass = ContactsFragment.class;
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_profile) {
-            fragmentClass = MyProfileFragment.class;
-        } else if (id == R.id.nav_books) {
-            fragmentClass = BooksFragment.class;
-        } else if (id == R.id.nav_news) {
-            fragmentClass = NewsFragment.class;
-        } else if (id == R.id.nav_contacts){
-            fragmentClass = ContactsFragment.class;
+            if (id == R.id.nav_profile) {
+                fragmentClass = MyProfileFragment.class;
+            } else if (id == R.id.nav_books) {
+                fragmentClass = BooksFragment.class;
+            } else if (id == R.id.nav_news) {
+                fragmentClass = NewsFragment.class;
+            } else if (id == R.id.nav_contacts) {
+                fragmentClass = ContactsFragment.class;
+            }
+
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
+            fragmentTransaction.commit();
+
+            setTitle(item.getTitle());
         }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
-        fragmentTransaction.commit();
-
-        setTitle(item.getTitle());
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

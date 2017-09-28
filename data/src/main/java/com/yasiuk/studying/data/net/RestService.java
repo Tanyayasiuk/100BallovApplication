@@ -87,6 +87,11 @@ public class RestService {
         return restAPI.login(studentLoginData);
     }
 
+    public Observable<Void> logout (){
+        Log.e("SSS", "MY logout method called");
+        return restAPI.logout();
+    }
+
     public Observable<StudentLoginData> createUser(StudentLoginData loginData){
         Log.e("SSS", "attempt to create a new user");
         return restAPI.register(loginData);
