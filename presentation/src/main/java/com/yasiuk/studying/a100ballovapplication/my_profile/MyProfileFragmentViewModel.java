@@ -135,7 +135,6 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
                             element.append("  ");
                             element.append(schedules.get(j).getSubject());
                             element.append("\n");
-                            Log.e("SSS", element.toString());
                         }
                     }
                 }

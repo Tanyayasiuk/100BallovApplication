@@ -117,7 +117,6 @@ public class BasicNotLoggedActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
 
-                // Вставить фрагмент, заменяя любой существующий
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.container_basic, fragment).commit();
 
@@ -126,7 +125,6 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         item.setChecked(true);
         setTitle(item.getTitle());
 
-        // Закрыть navigation drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_my);
         drawer.closeDrawer(GravityCompat.START);
         return true;

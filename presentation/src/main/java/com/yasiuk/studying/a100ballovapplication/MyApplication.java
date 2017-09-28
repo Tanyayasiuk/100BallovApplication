@@ -22,8 +22,6 @@ public class MyApplication extends Application {
         }
         LeakCanary.install(this);
 
-        //Realm.init(this);
-
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .build();

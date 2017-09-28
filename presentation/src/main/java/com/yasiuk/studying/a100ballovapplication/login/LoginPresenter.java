@@ -1,5 +1,7 @@
 package com.yasiuk.studying.a100ballovapplication.login;
 
+import android.util.Log;
+
 import com.yasiuk.studying.a100ballovapplication.MyApplication;
 import com.yasiuk.studying.a100ballovapplication.R;
 import com.yasiuk.studying.a100ballovapplication.base.BaseView;
@@ -51,6 +53,7 @@ public class LoginPresenter implements LoginBasePresenter{
 
                 @Override
                 public void onError(@NonNull Throwable e) {
+                    Log.e("SSS", "LOGIN ERROR: " + e.getLocalizedMessage());
                     view.showToast(R.string.login_error);
                     view.dismissProgress();
                 }

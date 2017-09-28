@@ -29,6 +29,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
 
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.ADMIN;
+import static com.yasiuk.studying.a100ballovapplication.base.Defaults.ADMIN_IV;
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_USER_EMAIL;
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.SHARED_PREFS_NAME;
 
@@ -64,7 +65,8 @@ public class NewsFragmentViewModel implements BaseViewModel {
     public void resume() {
         SharedPreferences preferences = activity.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         if(preferences.getString(KEY_USER_EMAIL, null)!= null){
-            if(preferences.getString(KEY_USER_EMAIL, null).equals(ADMIN))  isAdmin = true;
+            if(preferences.getString(KEY_USER_EMAIL, null).equals(ADMIN) ||
+                    preferences.getString(KEY_USER_EMAIL, null).equals(ADMIN_IV))  isAdmin = true;
         }
 
         final RecyclerView recyclerView = (RecyclerView)activity.findViewById(R.id.news_recycler_view);
