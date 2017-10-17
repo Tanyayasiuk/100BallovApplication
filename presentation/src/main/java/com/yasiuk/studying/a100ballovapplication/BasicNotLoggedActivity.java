@@ -15,9 +15,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.yasiuk.studying.a100ballovapplication.about_us.ParentFragmentOne;
 import com.yasiuk.studying.a100ballovapplication.contacts.ContactsFragment;
@@ -26,6 +29,13 @@ import com.yasiuk.studying.a100ballovapplication.login.LoginActivity;
 import com.yasiuk.studying.a100ballovapplication.registration.RegistrationActivity;
 import com.yasiuk.studying.a100ballovapplication.schedule.ChooseFragment;
 import com.yasiuk.studying.a100ballovapplication.schedule.ScheduleFragment;
+import com.yasiuk.studying.domain.entity.AuthState;
+import com.yasiuk.studying.domain.interaction.AuthService;
+
+import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 
 import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 
@@ -33,9 +43,14 @@ import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGME
 public class BasicNotLoggedActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    @Inject
+    public AuthService authService;
+    private Disposable authDisposable;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.appComponent.inject(this);
         setContentView(R.layout.basic_nav_draw);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_my);
@@ -48,6 +63,7 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_my);
+        checkVisibility(navigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
         Fragment fragment;
@@ -74,6 +90,25 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         }
         setTitle(fragmentType);
     }
+
+   private void checkVisibility(final NavigationView navigationView){
+       authDisposable = authService.observeState().subscribeWith(new DisposableObserver<AuthState>() {
+           @Override
+           public void onNext(@io.reactivex.annotations.NonNull AuthState authState) {
+               if(authState.isSigned()) {
+                   navigationView.getMenu().findItem(R.id.basic_reg).setEnabled(false);//.setVisible(false);
+               }
+           }
+
+           @Override
+           public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+               Log.e("SSS", "Main Activity auth. error " + e.getLocalizedMessage());
+           }
+
+           @Override
+           public void onComplete() {}
+       });
+   }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -163,5 +198,11 @@ public class BasicNotLoggedActivity extends AppCompatActivity
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 
-
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(authDisposable!=null && !authDisposable.isDisposed()){
+            authDisposable.dispose();
+        }
+    }
 }

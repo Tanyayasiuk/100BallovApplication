@@ -20,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yasiuk.studying.a100ballovapplication.books.BooksFragment;
 import com.yasiuk.studying.a100ballovapplication.contacts.ContactsFragment;
@@ -78,7 +77,9 @@ public class NavDrawActivity extends AppCompatActivity
             fragment = NewsFragment.newInstance(getSupportFragmentManager());
         } else if(fragmentType == R.string.profile_item){
             fragment = MyProfileFragment.newInstance(getSupportFragmentManager());
-        }else  {
+        } else if (fragmentType == R.string.books_item) {
+            fragment = BooksFragment.newInstance(getSupportFragmentManager());
+        } else  {
             fragment = ContactsFragment.newInstance(getSupportFragmentManager());
         }
 
@@ -202,6 +203,21 @@ public class NavDrawActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
+            Fragment currentFragment = this.getSupportFragmentManager().findFragmentById(R.id.container);
+            String title = " ";
+
+            if (currentFragment instanceof BooksFragment) {
+                title = BooksFragment.title;
+            } else if (currentFragment instanceof NewsFragment){
+                title = NewsFragment.title;
+            } else if (currentFragment instanceof ContactsFragment){
+                title = ContactsFragment.title;
+            } else if(currentFragment instanceof MyProfileFragment){
+                title = MyProfileFragment.title;
+            }
+            setTitle(title);
+
         }
 
         if (exit) {
@@ -218,6 +234,7 @@ public class NavDrawActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
@@ -232,5 +249,8 @@ public class NavDrawActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.e("SSS", "Nav Draw Activity  - onDestroy");
     }
+
+
 }

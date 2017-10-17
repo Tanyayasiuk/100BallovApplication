@@ -22,7 +22,7 @@ android {
         applicationId "com.yasiuk.studying.a100ballovapplication"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 2
+        versionCode 3
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

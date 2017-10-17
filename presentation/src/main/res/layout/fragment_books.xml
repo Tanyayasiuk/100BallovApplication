@@ -3,17 +3,38 @@
     <data>
         <import type="android.view.View"/>
         <import type="java.lang.String"/>
+        <import type="com.yasiuk.studying.a100ballovapplication.books.BooksFragmentViewModel.STATE"/>
         <variable
-            name="view"
+            name="bookView"
             type="com.yasiuk.studying.a100ballovapplication.books.BooksFragmentViewModel"/>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Однажды здесь будут книги..."
-        android:gravity="center"/>
-</LinearLayout>
+        android:background="@color/icons"
+        android:layout_marginTop="@dimen/standart_padding">
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:visibility="@{bookView.state == STATE.PROGRESS ? View.VISIBLE : View.GONE}"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/books_recycler_view"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/icons">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </ScrollView>
+    </RelativeLayout>
+
 </layout>

@@ -1,12 +1,13 @@
 package com.yasiuk.studying.data.net;
 
-import com.yasiuk.studying.data.entity.Book;
+import com.yasiuk.studying.data.entity.BookData;
 import com.yasiuk.studying.data.entity.ContactProfile;
 import com.yasiuk.studying.data.entity.Enrollment;
 import com.yasiuk.studying.data.entity.Message;
 import com.yasiuk.studying.data.entity.NewsData;
 import com.yasiuk.studying.data.entity.RegisterResponse;
 import com.yasiuk.studying.data.entity.StudentLoginData;
+import com.yasiuk.studying.data.entity.TaskData;
 import com.yasiuk.studying.data.entity.TeacherProfile;
 import com.yasiuk.studying.data.entity.ScheduleProfile;
 
@@ -53,8 +54,11 @@ public interface RestAPI { //Все методы для доступа к сер
     @POST("messaging/email")
     Observable<Void> sendEnrollment (@Body Enrollment enroll);
 
-    @GET("files/book/{filename}")
-    Observable<Book> getBook(@Path("filename") String filename);
+    /*@GET("files/book/{filename}")
+    Observable<BookData> getBook(@Path("filename") String filename);
+*/
+    @GET("files/book/{path}?pageSize=30")
+    Observable<List<BookData>> getBook(@Path("path") String path);
 
     @POST("messaging/news")
     Observable<RegisterResponse> publish (@Body Message message);
@@ -64,4 +68,7 @@ public interface RestAPI { //Все методы для доступа к сер
 
     @POST("data/news")
     Observable<Void> addNews(@Body NewsData newsData);
+
+    @GET("data/hometasks")
+    Observable<List<TaskData>> getTask(@Query("where") String condition);
 }

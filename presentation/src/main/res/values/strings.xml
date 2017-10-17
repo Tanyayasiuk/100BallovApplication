@@ -147,6 +147,8 @@
     <string name="confirm_exit">Нажмите Назад для выхода</string>
     <string name="student_tasks">Домашка</string>
     <string name="login_error">Ошибка авторизации. Логин или пароль неверный.</string>
+    <string name="no_task_toast">Домашние задания недоступны. Попробуйте позже или обратитесь к вашему преподавателю.</string>
+    <string name="books_fragment_title">Учебники</string>
 
 
 </resources>

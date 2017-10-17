@@ -2,11 +2,13 @@ package com.yasiuk.studying.data.net;
 
 import android.util.Log;
 
+import com.yasiuk.studying.data.entity.BookData;
 import com.yasiuk.studying.data.entity.ContactProfile;
 import com.yasiuk.studying.data.entity.Enrollment;
 import com.yasiuk.studying.data.entity.Message;
 import com.yasiuk.studying.data.entity.NewsData;
 import com.yasiuk.studying.data.entity.RegisterResponse;
+import com.yasiuk.studying.data.entity.TaskData;
 import com.yasiuk.studying.data.entity.TeacherProfile;
 import com.yasiuk.studying.data.entity.StudentLoginData;
 import com.yasiuk.studying.data.entity.ScheduleProfile;
@@ -117,6 +119,16 @@ public class RestService {
     public Observable<Void> addNews(NewsData newsData){
         Log.e("SSS", "posting...");
         return restAPI.addNews(newsData);
+    }
+
+    public Observable<List<TaskData>> getTask(int classNum){
+        String condition = "class=".concat(String.valueOf(classNum));
+        return restAPI.getTask(condition);
+
+    }
+
+    public Observable<List<BookData>> getBooksListing(int classNum){
+        return restAPI.getBook(String.valueOf(classNum));
     }
 
 

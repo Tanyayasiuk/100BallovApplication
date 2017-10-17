@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.yasiuk.studying.a100ballovapplication.permission.C2D_MESSAGE" />
 
@@ -31,7 +32,8 @@
         <activity
             android:name="com.yasiuk.studying.a100ballovapplication.NavDrawActivity"
             android:label="@string/title_activity_nav_draw"
-            android:noHistory="true"
+            android:noHistory="false"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName="com.yasiuk.studying.a100ballovapplication.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             >

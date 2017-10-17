@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGME
 public class BooksFragment extends BaseFragment {
 
     private BooksFragmentViewModel booksViewModel;
+    public static String title = "Учебники";
 
     public BooksFragment() {
     }
@@ -36,15 +39,15 @@ public class BooksFragment extends BaseFragment {
         } else {
             booksFragment = new BooksFragment();
         }
-        Bundle args = new Bundle();
+        /*Bundle args = new Bundle();
         args.putString(KEY_FRAGMENT, "Книги");
-        booksFragment.setArguments(args);
+        booksFragment.setArguments(args);*/
         return booksFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        booksViewModel = new BooksFragmentViewModel(getActivity());
+        booksViewModel = new BooksFragmentViewModel((AppCompatActivity) getActivity());
         this.viewModel = booksViewModel;
         super.onCreate(savedInstanceState);
     }
@@ -53,7 +56,7 @@ public class BooksFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentBooksBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_books, container, false);
-        binding.setView(booksViewModel);
+        binding.setBookView(booksViewModel);
         return binding.getRoot();
     }
 
@@ -62,5 +65,6 @@ public class BooksFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
 
 }
