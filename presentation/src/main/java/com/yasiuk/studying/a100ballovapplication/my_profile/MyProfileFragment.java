@@ -18,9 +18,12 @@ import com.yasiuk.studying.a100ballovapplication.R;
 import com.yasiuk.studying.a100ballovapplication.base.BaseFragment;
 import com.yasiuk.studying.a100ballovapplication.databinding.FragmentProfileBinding;
 
+import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
+
 public class MyProfileFragment extends BaseFragment {
 
     private MyProfileFragmentViewModel fragmentModel;
+    public static String title = "Мой профиль";
 
     public MyProfileFragment() {
     }
@@ -34,7 +37,9 @@ public class MyProfileFragment extends BaseFragment {
         } else {
             myProfileFragment = new MyProfileFragment();
         }
-
+        Bundle args = new Bundle();
+        args.putString(KEY_FRAGMENT, title);
+        myProfileFragment.setArguments(args);
         return myProfileFragment;
     }
 
@@ -44,6 +49,7 @@ public class MyProfileFragment extends BaseFragment {
         fragmentModel = new MyProfileFragmentViewModel((AppCompatActivity) getActivity());
         this.viewModel = fragmentModel;
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -52,8 +58,6 @@ public class MyProfileFragment extends BaseFragment {
         FragmentProfileBinding binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_profile, container, false);
         binding.setView(fragmentModel);
-        Log.e("SSS", "myProfileFragment onCreateView");
-
         return binding.getRoot();
     }
 
@@ -74,7 +78,7 @@ public class MyProfileFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("SSS", "myProfileFragment onResume");
+        //Log.e("SSS", "myProfileFragment onResume");
     }
 
     @Override

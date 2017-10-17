@@ -11,16 +11,20 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yasiuk.studying.a100ballovapplication.MyApplication;
 import com.yasiuk.studying.a100ballovapplication.NavDrawActivity;
 import com.yasiuk.studying.a100ballovapplication.R;
 import com.yasiuk.studying.a100ballovapplication.base.BaseViewModel;
 import com.yasiuk.studying.a100ballovapplication.books.BooksFragment;
 import com.yasiuk.studying.domain.entity.Schedule;
 import com.yasiuk.studying.domain.interaction.GetScheduleUseCase;
+import com.yasiuk.studying.domain.interaction.GetTaskUseCase;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.DisposableObserver;
@@ -47,6 +51,9 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
     SharedPreferences preferences;
     private GetScheduleUseCase useCase = new GetScheduleUseCase();
 
+    @Inject
+    public GetTaskUseCase getTaskUseCase;
+
     public ObservableField<String> nickname = new ObservableField<>("");
     public ObservableField<String> email = new ObservableField<>("");
     public ObservableField<String> schedule = new ObservableField<>("");
@@ -60,6 +67,7 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
     public void init() {
         preferences = activity.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         classNum = preferences.getInt(CLASS_NUM, 0);
+        MyApplication.appComponent.inject(this);
     }
 
     @Override
@@ -75,9 +83,7 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
         books.set("Учебник. Белорусский язык " + classNum + " класс.");
 
         getUsersSchedule(classNum);
-
-        //TODO Сделать useCase на получение ДЗ
-        hometask.set("Параграф №4\nУпражнения 1 - 3.\nВопросы после параграфа.");
+        getTask(classNum);
 
         state.set(STATE.DATA);
 
@@ -91,18 +97,10 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
                 fragmentTransaction.replace(R.id.container, fragment, fragment.getClass().getName());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                activity.setTitle(activity.getString(R.string.books_fragment_title));
             }
         });
 
-        TextView tasks = (TextView) activity.findViewById(R.id.student_tasks);
-        tasks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(activity, "GetTaskUseCase will be here soon...", Toast.LENGTH_LONG)
-                .show();
-
-            }
-        });
     }
 
     @Override
@@ -151,9 +149,30 @@ public class MyProfileFragmentViewModel implements BaseViewModel {
                 useCase.dispose();
             }
         });
-
     }
 
+    private void getTask(int classNum){
+
+         getTaskUseCase.execute(classNum, new DisposableObserver<String>() {
+            @Override
+            public void onNext(@NonNull String s) {
+                hometask.set(s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Toast.makeText(activity, R.string.no_task_toast, Toast.LENGTH_LONG)
+                        .show();
+                Log.e("SSS", e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                getTaskUseCase.dispose();
+            }
+        });
+
+    }
 
 
 }

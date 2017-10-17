@@ -37,25 +37,21 @@ public class ParentFragmentOne extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("SSS", "parent OnCreate");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.e("SSS", "parent OnCreateView");
         return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("SSS", "parent OnViewCreated");
 
         ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.viewpager_my);
         viewPager.setAdapter(new SampleFragmentPagerAdapter(getChildFragmentManager(),
                 getContext().getApplicationContext()));
-        Log.e("SSS", "adapter....");
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) getActivity().findViewById(R.id.sliding_tabs_my);
@@ -66,44 +62,37 @@ public class ParentFragmentOne extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.e("SSS", " parent On Attach");
     }
 
     @Override
     public void onStart() {
-        Log.e("SSS", "parent OnStart");
         super.onStart();
     }
 
 
     @Override
     public void onResume() {
-        Log.e("SSS", "parent OnResume");
         super.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("SSS", "parent OnPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.e("SSS", "parent OnStop");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e("SSS", "parent OnDestroy");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.e("SSS", "parent OnDetach");
     }
 }
 

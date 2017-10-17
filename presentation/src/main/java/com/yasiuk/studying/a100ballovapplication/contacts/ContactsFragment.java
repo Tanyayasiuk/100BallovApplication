@@ -13,11 +13,13 @@ import com.yasiuk.studying.a100ballovapplication.R;
 import com.yasiuk.studying.a100ballovapplication.base.BaseFragment;
 import com.yasiuk.studying.a100ballovapplication.databinding.FragmentContactsBinding;
 
+import static com.yasiuk.studying.a100ballovapplication.base.Defaults.KEY_FRAGMENT;
 
 
 public class ContactsFragment extends BaseFragment {
 
     private ContactsFragmentViewModel cfViewModel;
+    public static String title = "Контакты";
 
     public ContactsFragment() {
     }
@@ -32,6 +34,9 @@ public class ContactsFragment extends BaseFragment {
         } else {
             contactsFragment = new ContactsFragment();
         }
+        Bundle args = new Bundle();
+        args.putString(KEY_FRAGMENT, "Контакты");
+        contactsFragment.setArguments(args);
         return contactsFragment;
     }
 
@@ -41,6 +46,7 @@ public class ContactsFragment extends BaseFragment {
         cfViewModel = new ContactsFragmentViewModel(getActivity());
         this.viewModel = cfViewModel;
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable

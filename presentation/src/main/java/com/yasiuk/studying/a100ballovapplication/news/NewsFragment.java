@@ -21,6 +21,7 @@ public class NewsFragment extends BaseFragment{
 
     private NewsFragmentViewModel nfViewModel;
     public NewsFragment(){}
+    public static String title = "Новости";
 
     public static NewsFragment newInstance(FragmentManager manager){
         Fragment fragment = manager.findFragmentByTag(NewsFragment.class.getName());
@@ -32,7 +33,7 @@ public class NewsFragment extends BaseFragment{
         }
 
         Bundle args = new Bundle();
-        args.putString(KEY_FRAGMENT, "Новости");
+        args.putString(KEY_FRAGMENT, title);
         newsFragment.setArguments(args);
         return newsFragment;
     }
@@ -42,7 +43,7 @@ public class NewsFragment extends BaseFragment{
         nfViewModel = new NewsFragmentViewModel(getActivity());
         this.viewModel = nfViewModel;
         super.onCreate(savedInstanceState);
-        Log.e("SSS", "NEws Fragment - onCreate");
+
     }
 
     @Nullable

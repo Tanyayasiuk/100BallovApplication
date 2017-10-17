@@ -59,7 +59,7 @@ public class NewsFragmentViewModel implements BaseViewModel {
     }
 
     @Override
-    public void init() {Log.e("SSS", "NewsFragViewMOdel - init");}
+    public void init() {Log.e("SSS", "NewsFragViewModel - init");}
 
     @Override
     public void resume() {

@@ -13,7 +13,12 @@ import javax.inject.Singleton;
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 
-//По сути реализует паттерн observable
+// observable pattern
+
+/**The class deals with managing user's authorisation information.
+ * It stores and provides user's login and email, and class number and authorisation token
+ * in SharedPreferences*/
+
 @Singleton
 public class AuthService {
 
@@ -44,7 +49,6 @@ public class AuthService {
     }
 
     void saveUserData (String login, String objectId, String email, int classNum){
-        Log.e("SSS", "saveUserData");
         SharedPreferences prefs = context
                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putString(KEY_USER_LOGIN, login)
@@ -59,7 +63,6 @@ public class AuthService {
         SharedPreferences preferences = context
                 .getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         preferences.edit().remove(KEY_ACCESS_TOKEN).apply();
-        Log.e("SSS", "removing AccessToken");
         state.onNext(new AuthState(false));
     }
 
@@ -75,10 +78,8 @@ public class AuthService {
         //если токен не null - значит, мы залогинены
         if(!TextUtils.isEmpty(token)){
             state.onNext(new AuthState(true));
-            Log.e("SSS", "new AuthState(true)");
         } else {
             state.onNext(new AuthState(false));
-            Log.e("SSS", "new AuthState(false)");
         }
 
     }
