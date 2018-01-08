@@ -11,9 +11,7 @@ public class Defaults {
     public static final String KEY_USER_LOGIN = "login";
     public static final String KEY_USER_EMAIL = "email";
 
-    //TODO Придумать что-то, чтобы не хранить почту вот так.
-    public static final String ADMIN = "t.yasiuk@gmail.com";
-    public static final String ADMIN_IV = "iv.yasiuk@gmail.com";
+    
 
 }
                                             
